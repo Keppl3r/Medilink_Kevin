@@ -3,4 +3,7 @@
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/adaptadores/TransaccionDocumentoAdaptador.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/conexion/MongoConection.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/excepciones/PersistenciaException.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/interfaces/IAuditoriaDAO.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/interfaces/IFacturaDAO.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/interfaces/ITransaccionDAO.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/persistencia/Persistencia.java
