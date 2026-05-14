@@ -4,54 +4,49 @@
  */
 package entidades;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 /**
- * Clase dominio de auditoria, asociada con la transacción.
+ * es un subdocumento que está ubicado en el arreglo dentro de Transaccion
+ *
  * @author keppler
  */
 public class Auditoria {
 
-    private Integer id;
-    private Date fechaAuditoria;
-    private String auditor;
-    private String resultado;
-    private Integer idTransaccion;
+    private Integer idAuditoria;
+    private LocalDateTime fechaAuditoria;
+    private String resultado;       //puede ser Auditada o Pendiente
+    private Integer idAdministrador;
+    private String nombreAdministrador;
 
     public Auditoria() {
     }
 
-    public Auditoria(Integer id, Date fechaAuditoria, String auditor,
-            String resultado, Integer idTransaccion) {
-        this.id = id;
+    public Auditoria(Integer idAuditoria, LocalDateTime fechaAuditoria,
+            String resultado, Integer idAdministrador,
+            String nombreAdministrador) {
+        this.idAuditoria = idAuditoria;
         this.fechaAuditoria = fechaAuditoria;
-        this.auditor = auditor;
         this.resultado = resultado;
-        this.idTransaccion = idTransaccion;
+        this.idAdministrador = idAdministrador;
+        this.nombreAdministrador = nombreAdministrador;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdAuditoria() {
+        return idAuditoria;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdAuditoria(Integer idAuditoria) {
+        this.idAuditoria = idAuditoria;
     }
 
-    public Date getFechaAuditoria() {
+    public LocalDateTime getFechaAuditoria() {
         return fechaAuditoria;
     }
 
-    public void setFechaAuditoria(Date fechaAuditoria) {
+    public void setFechaAuditoria(LocalDateTime fechaAuditoria) {
         this.fechaAuditoria = fechaAuditoria;
-    }
-
-    public String getAuditor() {
-        return auditor;
-    }
-
-    public void setAuditor(String auditor) {
-        this.auditor = auditor;
     }
 
     public String getResultado() {
@@ -62,18 +57,19 @@ public class Auditoria {
         this.resultado = resultado;
     }
 
-    public Integer getIdTransaccion() {
-        return idTransaccion;
+    public Integer getIdAdministrador() {
+        return idAdministrador;
     }
 
-    public void setIdTransaccion(Integer idTransaccion) {
-        this.idTransaccion = idTransaccion;
+    public void setIdAdministrador(Integer idAdministrador) {
+        this.idAdministrador = idAdministrador;
     }
 
-    @Override
-    public String toString() {
-        return "Auditoria{" + "id=" + id + ", fechaAuditoria=" + fechaAuditoria + ", auditor=" + auditor + ", resultado=" + resultado + ", idTransaccion=" + idTransaccion + '}';
+    public String getNombreAdministrador() {
+        return nombreAdministrador;
     }
-    
-    
+
+    public void setNombreAdministrador(String nombreAdministrador) {
+        this.nombreAdministrador = nombreAdministrador;
+    }
 }

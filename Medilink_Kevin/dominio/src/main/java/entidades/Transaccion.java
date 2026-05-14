@@ -4,81 +4,68 @@
  */
 package entidades;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Clase de dominio de transacción, representa una consulta realizada y ya cobrada.
+ * Clase de dominio de transacción, representa una consulta realizada y ya
+ * cobrada.
+ *
  * @author keppler
  */
 public class Transaccion {
 
-    private Integer id;
-    private Date fecha;
-    private Double montoCobrado;
-    private String confirmacionStripe;
-    private String estadoAuditoria; // puede ser PENDIENTE, AUDITADA
+    private String id; // id en formato "AAA-2026-001"
+    private LocalDateTime fecha;
+    private String estado; //puede ser PENDIENTE o AUDITADA
+
+    //Paciente embebido con id y nombre
     private Integer idPaciente;
-    private Integer idDoctor;
-    private Integer idServicio;
+    private String nombrePaciente;
+
+    //Médico embebido con id y nombre
+    private Integer idMedico;
+    private String nombreMedico;
+
+    //Servicio embebido 
+    private String tipoConsulta;
+    private Double montoEsperado;
+
+    //Pago embebido Factura y PagoExterno
+    private String referenciaStripe;
+    private Double montoRecibido;
+    private String mensajeEstado; //puede ser Exitoso o Rechazado
+
+    // Auditorías embebidas 
+    private List<Auditoria> auditorias;
 
     public Transaccion() {
+        this.auditorias = new ArrayList<>();
     }
 
-    public Transaccion(Integer id, Date fecha, Double montoCobrado,
-            String confirmacionStripe, String estadoAuditoria,
-            Integer idPaciente, Integer idDoctor, Integer idServicio) {
-        this.id = id;
-        this.fecha = fecha;
-        this.montoCobrado = montoCobrado;
-        this.confirmacionStripe = confirmacionStripe;
-        this.estadoAuditoria = estadoAuditoria;
-        this.idPaciente = idPaciente;
-        this.idDoctor = idDoctor;
-        this.idServicio = idServicio;
-    }
-
-    public Double obtenerMontoCobrado() {
-        return montoCobrado;
-    }
-
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
-    public Double getMontoCobrado() {
-        return montoCobrado;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setMontoCobrado(Double montoCobrado) {
-        this.montoCobrado = montoCobrado;
-    }
-
-    public String getConfirmacionStripe() {
-        return confirmacionStripe;
-    }
-
-    public void setConfirmacionStripe(String confirmacionStripe) {
-        this.confirmacionStripe = confirmacionStripe;
-    }
-
-    public String getEstadoAuditoria() {
-        return estadoAuditoria;
-    }
-
-    public void setEstadoAuditoria(String estadoAuditoria) {
-        this.estadoAuditoria = estadoAuditoria;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Integer getIdPaciente() {
@@ -89,25 +76,76 @@ public class Transaccion {
         this.idPaciente = idPaciente;
     }
 
-    public Integer getIdDoctor() {
-        return idDoctor;
+    public String getNombrePaciente() {
+        return nombrePaciente;
     }
 
-    public void setIdDoctor(Integer idDoctor) {
-        this.idDoctor = idDoctor;
+    public void setNombrePaciente(String nombrePaciente) {
+        this.nombrePaciente = nombrePaciente;
     }
 
-    public Integer getIdServicio() {
-        return idServicio;
+    public Integer getIdMedico() {
+        return idMedico;
     }
 
-    public void setIdServicio(Integer idServicio) {
-        this.idServicio = idServicio;
+    public void setIdMedico(Integer idMedico) {
+        this.idMedico = idMedico;
     }
 
-    @Override
-    public String toString() {
-        return "Transaccion{" + "id=" + id + ", fecha=" + fecha + ", montoCobrado=" + montoCobrado + ", confirmacionStripe=" + confirmacionStripe + ", estadoAuditoria=" + estadoAuditoria + ", idPaciente=" + idPaciente + ", idDoctor=" + idDoctor + ", idServicio=" + idServicio + '}';
+    public String getNombreMedico() {
+        return nombreMedico;
     }
-    
+
+    public void setNombreMedico(String nombreMedico) {
+        this.nombreMedico = nombreMedico;
+    }
+
+    public String getTipoConsulta() {
+        return tipoConsulta;
+    }
+
+    public void setTipoConsulta(String tipoConsulta) {
+        this.tipoConsulta = tipoConsulta;
+    }
+
+    public Double getMontoEsperado() {
+        return montoEsperado;
+    }
+
+    public void setMontoEsperado(Double montoEsperado) {
+        this.montoEsperado = montoEsperado;
+    }
+
+    public String getReferenciaStripe() {
+        return referenciaStripe;
+    }
+
+    public void setReferenciaStripe(String referenciaStripe) {
+        this.referenciaStripe = referenciaStripe;
+    }
+
+    public Double getMontoRecibido() {
+        return montoRecibido;
+    }
+
+    public void setMontoRecibido(Double montoRecibido) {
+        this.montoRecibido = montoRecibido;
+    }
+
+    public String getMensajeEstado() {
+        return mensajeEstado;
+    }
+
+    public void setMensajeEstado(String mensajeEstado) {
+        this.mensajeEstado = mensajeEstado;
+    }
+
+    public List<Auditoria> getAuditorias() {
+        return auditorias;
+    }
+
+    public void setAuditorias(List<Auditoria> auditorias) {
+        this.auditorias = auditorias;
+    }
+
 }

@@ -1,6 +1,4 @@
 entidades/Doctor.class
 entidades/Paciente.class
-entidades/Servicio.class
-entidades/Factura.class
 entidades/Auditoria.class
 entidades/Transaccion.class

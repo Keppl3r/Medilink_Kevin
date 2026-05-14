@@ -13,22 +13,21 @@ import java.util.Date;
  */
 public class TransaccionDTO {
 
-    private Integer id;
+    private String id;
     private Date fecha;
-    private Double montoCobrado;
-    private String estadoAuditoria;
+    private Double montoRecibido;
+    private String estado;
     private String nombrePaciente;
-    private String nombreDoctor;
-    private String nombreServicio;
+    private String nombreMedico;
 
     public TransaccionDTO() {
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -40,20 +39,20 @@ public class TransaccionDTO {
         this.fecha = fecha;
     }
 
-    public Double getMontoCobrado() {
-        return montoCobrado;
+    public Double getMontoRecibido() {
+        return montoRecibido;
     }
 
-    public void setMontoCobrado(Double montoCobrado) {
-        this.montoCobrado = montoCobrado;
+    public void setMontoRecibido(Double montoRecibido) {
+        this.montoRecibido = montoRecibido;
     }
 
-    public String getEstadoAuditoria() {
-        return estadoAuditoria;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setEstadoAuditoria(String estadoAuditoria) {
-        this.estadoAuditoria = estadoAuditoria;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getNombrePaciente() {
@@ -64,19 +63,11 @@ public class TransaccionDTO {
         this.nombrePaciente = nombrePaciente;
     }
 
-    public String getNombreDoctor() {
-        return nombreDoctor;
+    public String getNombreMedico() {
+        return nombreMedico;
     }
 
-    public void setNombreDoctor(String nombreDoctor) {
-        this.nombreDoctor = nombreDoctor;
-    }
-
-    public String getNombreServicio() {
-        return nombreServicio;
-    }
-
-    public void setNombreServicio(String nombreServicio) {
-        this.nombreServicio = nombreServicio;
+    public void setNombreMedico(String nombreMedico) {
+        this.nombreMedico = nombreMedico;
     }
 }

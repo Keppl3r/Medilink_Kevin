@@ -5,7 +5,7 @@
 package entidades;
 
 /**
- *
+ * es una coleccion en Mongo
  * @author keppler
  */
 public class Doctor {
@@ -13,14 +13,16 @@ public class Doctor {
     private Integer id;
     private String nombre;
     private String especialidad;
+    private Double costoConsulta;
 
     public Doctor() {
     }
 
-    public Doctor(Integer id, String nombre, String especialidad) {
+    public Doctor(Integer id, String nombre, String especialidad, Double costoConsulta) {
         this.id = id;
         this.nombre = nombre;
         this.especialidad = especialidad;
+        this.costoConsulta = costoConsulta;
     }
 
     public Integer getId() {
@@ -47,10 +49,11 @@ public class Doctor {
         this.especialidad = especialidad;
     }
 
-    @Override
-    public String toString() {
-        return "Doctor{" + "id=" + id + ", nombre=" + nombre + ", especialidad=" + especialidad + '}';
+    public Double getCostoConsulta() {
+        return costoConsulta;
     }
-    
-    
+
+    public void setCostoConsulta(Double costoConsulta) {
+        this.costoConsulta = costoConsulta;
+    }
 }

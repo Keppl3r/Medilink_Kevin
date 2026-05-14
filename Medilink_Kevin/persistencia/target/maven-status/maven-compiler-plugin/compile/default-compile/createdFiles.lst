@@ -1,9 +1,7 @@
-adaptadores/FacturaDocumentoAdaptador.class
 interfaces/ITransaccionDAO.class
-adaptadores/AuditoriaDocumentoAdaptador.class
-interfaces/IFacturaDAO.class
+daos/DAOFactory.class
 persistencia/Persistencia.class
 conexion/MongoConection.class
 adaptadores/TransaccionDocumentoAdaptador.class
 excepciones/PersistenciaException.class
-interfaces/IAuditoriaDAO.class
+daos/TransaccionDAO.class

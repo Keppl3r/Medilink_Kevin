@@ -13,25 +13,25 @@ import java.util.Date;
  */
 public class DetalleTransaccionDTO {
 
-    private Integer id;
+    private String id;
     private Date fecha;
-    private Double montoCobrado;
-    private Double montoEsperado;
-    private String resultadoStripe;
-    private String estadoAuditoria;
+    private String estado;
     private String nombrePaciente;
-    private String nombreDoctor;
-    private Boolean facturaEmitida;
-    private String folioFactura;
+    private String nombreMedico;
+    private String tipoConsulta;
+    private Double montoEsperado;
+    private Double montoRecibido;
+    private String referenciaStripe;
+    private String mensajeEstado;
 
     public DetalleTransaccionDTO() {
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,36 +43,12 @@ public class DetalleTransaccionDTO {
         this.fecha = fecha;
     }
 
-    public Double getMontoCobrado() {
-        return montoCobrado;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setMontoCobrado(Double montoCobrado) {
-        this.montoCobrado = montoCobrado;
-    }
-
-    public Double getMontoEsperado() {
-        return montoEsperado;
-    }
-
-    public void setMontoEsperado(Double montoEsperado) {
-        this.montoEsperado = montoEsperado;
-    }
-
-    public String getResultadoStripe() {
-        return resultadoStripe;
-    }
-
-    public void setResultadoStripe(String resultadoStripe) {
-        this.resultadoStripe = resultadoStripe;
-    }
-
-    public String getEstadoAuditoria() {
-        return estadoAuditoria;
-    }
-
-    public void setEstadoAuditoria(String estadoAuditoria) {
-        this.estadoAuditoria = estadoAuditoria;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getNombrePaciente() {
@@ -83,27 +59,51 @@ public class DetalleTransaccionDTO {
         this.nombrePaciente = nombrePaciente;
     }
 
-    public String getNombreDoctor() {
-        return nombreDoctor;
+    public String getNombreMedico() {
+        return nombreMedico;
     }
 
-    public void setNombreDoctor(String nombreDoctor) {
-        this.nombreDoctor = nombreDoctor;
+    public void setNombreMedico(String nombreMedico) {
+        this.nombreMedico = nombreMedico;
     }
 
-    public Boolean getFacturaEmitida() {
-        return facturaEmitida;
+    public String getTipoConsulta() {
+        return tipoConsulta;
     }
 
-    public void setFacturaEmitida(Boolean facturaEmitida) {
-        this.facturaEmitida = facturaEmitida;
+    public void setTipoConsulta(String tipoConsulta) {
+        this.tipoConsulta = tipoConsulta;
     }
 
-    public String getFolioFactura() {
-        return folioFactura;
+    public Double getMontoEsperado() {
+        return montoEsperado;
     }
 
-    public void setFolioFactura(String folioFactura) {
-        this.folioFactura = folioFactura;
+    public void setMontoEsperado(Double montoEsperado) {
+        this.montoEsperado = montoEsperado;
+    }
+
+    public Double getMontoRecibido() {
+        return montoRecibido;
+    }
+
+    public void setMontoRecibido(Double montoRecibido) {
+        this.montoRecibido = montoRecibido;
+    }
+
+    public String getReferenciaStripe() {
+        return referenciaStripe;
+    }
+
+    public void setReferenciaStripe(String referenciaStripe) {
+        this.referenciaStripe = referenciaStripe;
+    }
+
+    public String getMensajeEstado() {
+        return mensajeEstado;
+    }
+
+    public void setMensajeEstado(String mensajeEstado) {
+        this.mensajeEstado = mensajeEstado;
     }
 }
