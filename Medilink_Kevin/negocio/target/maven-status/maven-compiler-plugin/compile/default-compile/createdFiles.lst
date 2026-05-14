@@ -1,1 +1,4 @@
-com/negocio/Negocio.class
+interfaces/IAuditarTransacciones.class
+excepciones/NegocioException.class
+control/ControlAuditarTransacciones.class
+BOs/AuditarTransaccionesBO.class

@@ -4,7 +4,9 @@
  */
 package dtos;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+
 
 /**
  * Filtros para búsqueda de transacciones por período o paciente.
@@ -13,26 +15,26 @@ import java.util.Date;
  */
 public class FiltrosBusquedaDTO {
 
-    private Date inicio;
-    private Date fin;
+    private LocalDateTime inicio;
+    private LocalDateTime fin;
     private String nombrePaciente;
 
     public FiltrosBusquedaDTO() {
     }
 
-    public Date getInicio() {
+    public LocalDateTime getInicio() {
         return inicio;
     }
 
-    public void setInicio(Date inicio) {
+    public void setInicio(LocalDateTime inicio) {
         this.inicio = inicio;
     }
 
-    public Date getFin() {
+    public LocalDateTime getFin() {
         return fin;
     }
 
-    public void setFin(Date fin) {
+    public void setFin(LocalDateTime fin) {
         this.fin = fin;
     }
 

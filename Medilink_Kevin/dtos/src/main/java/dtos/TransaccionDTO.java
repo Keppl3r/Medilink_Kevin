@@ -4,7 +4,9 @@
  */
 package dtos;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+
 
 /**
  * DTO para listas de transacciones.
@@ -14,7 +16,7 @@ import java.util.Date;
 public class TransaccionDTO {
 
     private String id;
-    private Date fecha;
+    private LocalDateTime fecha;
     private Double montoRecibido;
     private String estado;
     private String nombrePaciente;
@@ -31,11 +33,11 @@ public class TransaccionDTO {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 

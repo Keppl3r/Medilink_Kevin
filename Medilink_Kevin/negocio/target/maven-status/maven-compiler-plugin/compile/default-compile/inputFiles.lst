@@ -1,1 +1,4 @@
-/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/src/main/java/com/negocio/Negocio.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/src/main/java/BOs/AuditarTransaccionesBO.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/src/main/java/control/ControlAuditarTransacciones.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/src/main/java/excepciones/NegocioException.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/src/main/java/interfaces/IAuditarTransacciones.java

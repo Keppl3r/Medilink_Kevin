@@ -4,7 +4,9 @@
  */
 package dtos;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+
 
 /**
  * DTO con el detalle completo de una transacción para la pantalla de auditoría.
@@ -14,7 +16,7 @@ import java.util.Date;
 public class DetalleTransaccionDTO {
 
     private String id;
-    private Date fecha;
+    private LocalDateTime fecha;
     private String estado;
     private String nombrePaciente;
     private String nombreMedico;
@@ -35,11 +37,11 @@ public class DetalleTransaccionDTO {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 

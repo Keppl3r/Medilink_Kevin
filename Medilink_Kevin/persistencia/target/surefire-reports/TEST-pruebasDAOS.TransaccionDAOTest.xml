@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="pruebasDAOS.TransaccionDAOTest" time="0.273" tests="18" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="pruebasDAOS.TransaccionDAOTest" time="0.272" tests="18" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/usr/lib/apache-netbeans/jdk/lib"/>
-    <property name="sun.java.command" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/target/surefire/surefirebooter-20260513204950452_3.jar /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/target/surefire 2026-05-13T20-49-49_726-jvmRun1 surefire-20260513204950452_1tmp surefire_0-20260513204950452_2tmp"/>
+    <property name="sun.java.command" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/target/surefire/surefirebooter-20260513230732159_3.jar /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/target/surefire 2026-05-13T23-07-31_362-jvmRun1 surefire-20260513230732159_1tmp surefire_0-20260513230732159_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/target/test-classes:/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/target/classes:/home/keppler/.m2/repository/org/mongodb/mongodb-driver-sync/5.1.1/mongodb-driver-sync-5.1.1.jar:/home/keppler/.m2/repository/org/mongodb/bson/5.1.1/bson-5.1.1.jar:/home/keppler/.m2/repository/org/mongodb/mongodb-driver-core/5.1.1/mongodb-driver-core-5.1.1.jar:/home/keppler/.m2/repository/org/mongodb/bson-record-codec/5.1.1/bson-record-codec-5.1.1.jar:/home/keppler/Proyectos/Medilink/Medilink_Kevin/dominio/target/dominio-1.0-SNAPSHOT.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.3/junit-jupiter-api-5.10.3.jar:/home/keppler/.m2/repository/org/junit/platform/junit-platform-commons/1.10.3/junit-platform-commons-1.10.3.jar:/home/keppler/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.3/junit-jupiter-params-5.10.3.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.3/junit-jupiter-engine-5.10.3.jar:/home/keppler/.m2/repository/org/junit/platform/junit-platform-engine/1.10.3/junit-platform-engine-1.10.3.jar:/home/keppler/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -28,7 +28,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/target/surefire/surefirebooter-20260513204950452_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/target/surefire/surefirebooter-20260513230732159_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="25.0.2+10-LTS"/>
     <property name="user.name" value="keppler"/>
@@ -57,26 +57,86 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testBuscarPorPacienteInexistente" classname="pruebasDAOS.TransaccionDAOTest" time="0.028">
-    <system-err><![CDATA[May 13, 2026 8:49:50 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+  <testcase name="testBuscarPorPacienteInexistente" classname="pruebasDAOS.TransaccionDAOTest" time="0.029">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
 WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+May 13, 2026 11:07:32 PM daos.TransaccionDAO buscarPorPaciente
+INFO: Ejecutando busqueda con regex para paciente: Manganito Tangamandapio Parangaricutimiricuaro
 ]]></system-err>
   </testcase>
-  <testcase name="testActualizarEstadoIdNuloLanzaExcepcion" classname="pruebasDAOS.TransaccionDAOTest" time="0.002"/>
-  <testcase name="testBuscarPorPaciente" classname="pruebasDAOS.TransaccionDAOTest" time="0.033"/>
-  <testcase name="testBuscarPorIdExito" classname="pruebasDAOS.TransaccionDAOTest" time="0.006"/>
-  <testcase name="testInsertarExito" classname="pruebasDAOS.TransaccionDAOTest" time="0.003"/>
-  <testcase name="testAgregarAuditoria" classname="pruebasDAOS.TransaccionDAOTest" time="0.008"/>
+  <testcase name="testActualizarEstadoIdNuloLanzaExcepcion" classname="pruebasDAOS.TransaccionDAOTest" time="0.001"/>
+  <testcase name="testBuscarPorPaciente" classname="pruebasDAOS.TransaccionDAOTest" time="0.039">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: TRANSACCION-1
+May 13, 2026 11:07:32 PM daos.TransaccionDAO buscarPorPaciente
+INFO: Ejecutando busqueda con regex para paciente: Kevin
+]]></system-err>
+  </testcase>
+  <testcase name="testBuscarPorIdExito" classname="pruebasDAOS.TransaccionDAOTest" time="0.007">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: TRANSACCION-2
+May 13, 2026 11:07:32 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: TRANSACCION-2
+]]></system-err>
+  </testcase>
+  <testcase name="testInsertarExito" classname="pruebasDAOS.TransaccionDAOTest" time="0.002">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: TRANSACCION-3
+]]></system-err>
+  </testcase>
+  <testcase name="testAgregarAuditoria" classname="pruebasDAOS.TransaccionDAOTest" time="0.007">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: TRANSACCION-4
+May 13, 2026 11:07:32 PM daos.TransaccionDAO agregarAuditoria
+INFO: Insertando subdocumento de auditoria en transaccion: TRANSACCION-4
+May 13, 2026 11:07:32 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: TRANSACCION-4
+]]></system-err>
+  </testcase>
   <testcase name="testBuscarPorIdEnBlancoLanzaExcepcion" classname="pruebasDAOS.TransaccionDAOTest" time="0.001"/>
-  <testcase name="testBuscarPorRango" classname="pruebasDAOS.TransaccionDAOTest" time="0.005"/>
+  <testcase name="testBuscarPorRango" classname="pruebasDAOS.TransaccionDAOTest" time="0.005">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: TRANSACCION-5
+May 13, 2026 11:07:32 PM daos.TransaccionDAO buscarPorRango
+INFO: Buscando transacciones por rango de fechas
+]]></system-err>
+  </testcase>
   <testcase name="testAgregarAuditoriaIDNulosLanzaExcepcion" classname="pruebasDAOS.TransaccionDAOTest" time="0.001"/>
-  <testcase name="testBuscarPorRangoNuloLanzaExcepcion" classname="pruebasDAOS.TransaccionDAOTest" time="0.001"/>
-  <testcase name="testContarPendientes" classname="pruebasDAOS.TransaccionDAOTest" time="0.007"/>
-  <testcase name="testBuscarPorRangoSinResultados" classname="pruebasDAOS.TransaccionDAOTest" time="0.002"/>
-  <testcase name="testBuscarPorPacienteMayusculasMinusculas" classname="pruebasDAOS.TransaccionDAOTest" time="0.003"/>
-  <testcase name="testActualizarEstado" classname="pruebasDAOS.TransaccionDAOTest" time="0.003"/>
+  <testcase name="testBuscarPorRangoNuloLanzaExcepcion" classname="pruebasDAOS.TransaccionDAOTest" time="0.002"/>
+  <testcase name="testContarPendientes" classname="pruebasDAOS.TransaccionDAOTest" time="0.008">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: TRANSACCION-6
+May 13, 2026 11:07:32 PM daos.TransaccionDAO contarPendientes
+INFO: Contando transacciones pendientes
+]]></system-err>
+  </testcase>
+  <testcase name="testBuscarPorRangoSinResultados" classname="pruebasDAOS.TransaccionDAOTest" time="0.001">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM daos.TransaccionDAO buscarPorRango
+INFO: Buscando transacciones por rango de fechas
+]]></system-err>
+  </testcase>
+  <testcase name="testBuscarPorPacienteMayusculasMinusculas" classname="pruebasDAOS.TransaccionDAOTest" time="0.003">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: TRANSACCION-7
+May 13, 2026 11:07:32 PM daos.TransaccionDAO buscarPorPaciente
+INFO: Ejecutando busqueda con regex para paciente: kevin mendoza
+]]></system-err>
+  </testcase>
+  <testcase name="testActualizarEstado" classname="pruebasDAOS.TransaccionDAOTest" time="0.004">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: TRANSACCION-8
+May 13, 2026 11:07:32 PM daos.TransaccionDAO actualizarEstado
+INFO: Insertando actualizando estado en transaccion: TRANSACCION-8
+May 13, 2026 11:07:32 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: TRANSACCION-8
+]]></system-err>
+  </testcase>
   <testcase name="testBuscarPorPacienteVacioLanzaExcepcion" classname="pruebasDAOS.TransaccionDAOTest" time="0.001"/>
   <testcase name="testBuscarPorIdNuloLanzaExcepcion" classname="pruebasDAOS.TransaccionDAOTest" time="0.001"/>
-  <testcase name="testBuscarPorIdInexistente" classname="pruebasDAOS.TransaccionDAOTest" time="0.002"/>
+  <testcase name="testBuscarPorIdInexistente" classname="pruebasDAOS.TransaccionDAOTest" time="0.002">
+    <system-err><![CDATA[May 13, 2026 11:07:32 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: NO-EXISTE-XYZ
+]]></system-err>
+  </testcase>
   <testcase name="testInsertarNuloLanzaExcepcion" classname="pruebasDAOS.TransaccionDAOTest" time="0.001"/>
 </testsuite>

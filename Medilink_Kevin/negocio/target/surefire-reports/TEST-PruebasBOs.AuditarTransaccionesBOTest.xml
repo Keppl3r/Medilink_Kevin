@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="PruebasBOs.AuditarTransaccionesBOTest" time="0.255" tests="14" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/target/test-classes:/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/target/classes:/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/target/persistencia-1.0-SNAPSHOT.jar:/home/keppler/.m2/repository/org/mongodb/mongodb-driver-sync/5.1.1/mongodb-driver-sync-5.1.1.jar:/home/keppler/.m2/repository/org/mongodb/bson/5.1.1/bson-5.1.1.jar:/home/keppler/.m2/repository/org/mongodb/mongodb-driver-core/5.1.1/mongodb-driver-core-5.1.1.jar:/home/keppler/.m2/repository/org/mongodb/bson-record-codec/5.1.1/bson-record-codec-5.1.1.jar:/home/keppler/Proyectos/Medilink/Medilink_Kevin/dtos/target/dtos-1.0-SNAPSHOT.jar:/home/keppler/Proyectos/Medilink/Medilink_Kevin/dominio/target/dominio-1.0-SNAPSHOT.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/home/keppler/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/keppler/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/home/keppler/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/home/keppler/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="America/Hermosillo"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/usr/lib/apache-netbeans/jdk/lib"/>
+    <property name="sun.java.command" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/target/surefire/surefirebooter-20260513230733264_17.jar /home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/target/surefire 2026-05-13T23-07-31_362-jvmRun1 surefire-20260513230733264_15tmp surefire_1-20260513230733264_16tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/target/test-classes:/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/target/classes:/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/target/persistencia-1.0-SNAPSHOT.jar:/home/keppler/.m2/repository/org/mongodb/mongodb-driver-sync/5.1.1/mongodb-driver-sync-5.1.1.jar:/home/keppler/.m2/repository/org/mongodb/bson/5.1.1/bson-5.1.1.jar:/home/keppler/.m2/repository/org/mongodb/mongodb-driver-core/5.1.1/mongodb-driver-core-5.1.1.jar:/home/keppler/.m2/repository/org/mongodb/bson-record-codec/5.1.1/bson-record-codec-5.1.1.jar:/home/keppler/Proyectos/Medilink/Medilink_Kevin/dtos/target/dtos-1.0-SNAPSHOT.jar:/home/keppler/Proyectos/Medilink/Medilink_Kevin/dominio/target/dominio-1.0-SNAPSHOT.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/home/keppler/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/keppler/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/home/keppler/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/home/keppler/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/home/keppler/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/keppler"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/usr/lib/apache-netbeans/jdk"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio/target/surefire/surefirebooter-20260513230733264_17.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="25.0.2+10-LTS"/>
+    <property name="user.name" value="keppler"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="7.0.4-100.fc43.x86_64"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-25.0.2+10"/>
+    <property name="maven.ext.class.path" value="/usr/lib/apache-netbeans/java/maven-nblib/netbeans-eventspy.jar"/>
+    <property name="localRepository" value="/home/keppler/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/home/keppler/Proyectos/Medilink/Medilink_Kevin/negocio"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="25.0.2+10-LTS"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="testObtenerPago" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.022">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+May 13, 2026 11:07:33 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: AUDITAR-1
+May 13, 2026 11:07:33 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: AUDITAR-2
+May 13, 2026 11:07:33 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: AUDITAR-3
+May 13, 2026 11:07:33 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: AUDITAR-4
+May 13, 2026 11:07:33 PM daos.TransaccionDAO insertar
+INFO: Insertando nueva transaccion con ID: AUDITAR-5
+May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: AUDITAR-2
+May 13, 2026 11:07:33 PM BOs.AuditarTransaccionesBO obtenerPago
+INFO: Pago obtenido para transaccion: AUDITAR-2
+]]></system-err>
+  </testcase>
+  <testcase name="testAuditarTransaccionInconsistente" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.004">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: AUDITAR-4
+]]></system-err>
+  </testcase>
+  <testcase name="testBuscarPorPaciente" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.008">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorPaciente
+INFO: Ejecutando busqueda con regex para paciente: Kevin
+May 13, 2026 11:07:33 PM BOs.AuditarTransaccionesBO buscarPorPaciente
+INFO: Transacciones encontradas por paciente: 5
+]]></system-err>
+  </testcase>
+  <testcase name="testObtenerDetalle" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.003">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: AUDITAR-1
+May 13, 2026 11:07:33 PM BOs.AuditarTransaccionesBO obtenerDetalle
+INFO: Detalle obtenido para transaccion: AUDITAR-1
+]]></system-err>
+  </testcase>
+  <testcase name="testAuditarTransaccionPagoRechazado" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.003">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: AUDITAR-5
+]]></system-err>
+  </testcase>
+  <testcase name="testObtenerDetalleIdNulo" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.001"/>
+  <testcase name="testMarcarPendiente" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.01">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: AUDITAR-3
+May 13, 2026 11:07:33 PM daos.TransaccionDAO actualizarEstado
+INFO: Insertando actualizando estado en transaccion: AUDITAR-3
+May 13, 2026 11:07:33 PM BOs.AuditarTransaccionesBO marcarPendiente
+INFO: Transaccion marcada como pendiente: AUDITAR-3
+May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: AUDITAR-3
+May 13, 2026 11:07:33 PM BOs.AuditarTransaccionesBO obtenerDetalle
+INFO: Detalle obtenido para transaccion: AUDITAR-3
+]]></system-err>
+  </testcase>
+  <testcase name="testObtenerDetalleInexistente" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.003">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: Tangamandapio
+]]></system-err>
+  </testcase>
+  <testcase name="testObtenerPagoInexistente" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.002">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: Tangamandapiopio
+]]></system-err>
+  </testcase>
+  <testcase name="testContarPendientes" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.01">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM daos.TransaccionDAO contarPendientes
+INFO: Contando transacciones pendientes
+May 13, 2026 11:07:33 PM BOs.AuditarTransaccionesBO contarPendientes
+INFO: Pendientes encontrados: 5
+]]></system-err>
+  </testcase>
+  <testcase name="testAuditarTransaccionExito" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.007">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: AUDITAR-1
+May 13, 2026 11:07:33 PM daos.TransaccionDAO agregarAuditoria
+INFO: Insertando subdocumento de auditoria en transaccion: AUDITAR-1
+May 13, 2026 11:07:33 PM BOs.AuditarTransaccionesBO auditarTransaccion
+INFO: Transaccion auditada: AUDITAR-1
+May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorId
+INFO: Buscando transaccion en Mongo con ID: AUDITAR-1
+May 13, 2026 11:07:33 PM BOs.AuditarTransaccionesBO obtenerDetalle
+INFO: Detalle obtenido para transaccion: AUDITAR-1
+]]></system-err>
+  </testcase>
+  <testcase name="testBuscarPorPeriodo" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.006">
+    <system-err><![CDATA[May 13, 2026 11:07:33 PM daos.TransaccionDAO buscarPorRango
+INFO: Buscando transacciones por rango de fechas
+May 13, 2026 11:07:33 PM BOs.AuditarTransaccionesBO buscarPorPeriodo
+INFO: Transacciones encontradas por periodo: 5
+]]></system-err>
+  </testcase>
+  <testcase name="testBuscarPorPacienteVacio" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.002"/>
+  <testcase name="testBuscarPorPeriodoFechasInvertidas" classname="PruebasBOs.AuditarTransaccionesBOTest" time="0.002"/>
+</testsuite>

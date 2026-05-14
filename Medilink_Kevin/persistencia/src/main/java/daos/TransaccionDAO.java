@@ -18,12 +18,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author keppler
  */
 public class TransaccionDAO implements ITransaccionDAO {
+
+    private static final Logger LOG = Logger.getLogger(TransaccionDAO.class.getName());
 
     private final MongoCollection<Document> coleccion;
     private final TransaccionDocumentoAdaptador adaptador;
@@ -40,6 +44,7 @@ public class TransaccionDAO implements ITransaccionDAO {
         if (transaccion == null) {
             throw new PersistenciaException("La transacción no puede ser nula");
         }
+        LOG.log(Level.INFO, "Insertando nueva transaccion con ID: {0}", transaccion.getId());
         Document doc = adaptador.convertirADocumento(transaccion);
         InsertOneResult resultado = coleccion.insertOne(doc);
         if (resultado.getInsertedId() == null) {
@@ -53,6 +58,7 @@ public class TransaccionDAO implements ITransaccionDAO {
         if (id == null || id.isBlank()) {
             throw new PersistenciaException("El ID no puede ser nulo o vacío");
         }
+        LOG.log(Level.INFO, "Buscando transaccion en Mongo con ID: {0}", id);
         Document doc = coleccion.find(Filters.eq("_id", id)).first();
         if (doc == null) {
             return null;
@@ -66,9 +72,11 @@ public class TransaccionDAO implements ITransaccionDAO {
         if (inicio == null || fin == null) {
             throw new PersistenciaException("Las fechas no pueden ser nulas");
         }
+        LOG.log(Level.INFO, "Buscando transacciones por rango de fechas");
+
         List<Document> docs = coleccion.find(Filters.and(
-                        Filters.gte("fecha", inicio),
-                        Filters.lte("fecha", fin)))
+                Filters.gte("fecha", inicio),
+                Filters.lte("fecha", fin)))
                 .into(new ArrayList<>());
 
         List<Transaccion> lista = new ArrayList<>();
@@ -84,6 +92,7 @@ public class TransaccionDAO implements ITransaccionDAO {
         if (nombre == null || nombre.isBlank()) {
             throw new PersistenciaException("El nombre no puede estar vacío");
         }
+        LOG.log(Level.INFO, "Ejecutando busqueda con regex para paciente: {0}", nombre); 
         List<Document> docs = coleccion.find(
                 Filters.regex("paciente.nombre", nombre, "i"))
                 .into(new ArrayList<>());
@@ -97,6 +106,7 @@ public class TransaccionDAO implements ITransaccionDAO {
 
     @Override
     public Integer contarPendientes() throws PersistenciaException {
+        LOG.log(Level.INFO, "Contando transacciones pendientes"); 
         long count = coleccion.countDocuments(
                 Filters.eq("estado", "Pendiente"));
         return (int) count;
@@ -108,6 +118,7 @@ public class TransaccionDAO implements ITransaccionDAO {
         if (id == null) {
             throw new PersistenciaException("El ID no puede ser nulo");
         }
+        LOG.log(Level.INFO, "Actualizando estado en transaccion: {0}", id); 
         coleccion.updateOne(
                 Filters.eq("_id", id),
                 Updates.set("estado", estado));
@@ -119,6 +130,7 @@ public class TransaccionDAO implements ITransaccionDAO {
         if (idTransaccion == null || auditoria == null) {
             throw new PersistenciaException("ID y auditoría son requeridos");
         }
+        LOG.log(Level.INFO, "Insertando subdocumento de auditoria en transaccion: {0}", idTransaccion); 
         coleccion.updateOne(
                 Filters.eq("_id", idTransaccion),
                 Updates.combine(

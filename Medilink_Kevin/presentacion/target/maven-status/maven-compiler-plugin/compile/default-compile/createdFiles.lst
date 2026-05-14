@@ -1,1 +1,8 @@
-com/presentacion/Presentacion.class
+presentacion/Main.class
+presentacion/CoordinadorAuditarTransacciones.class
+presentacion/FrmInicio.class
+presentacion/FrmDetalle.class
+presentacion/FrmListaTransacciones.class
+presentacion/FrmBusqueda.class
+presentacion/FrmConfirmacion.class
+presentacion/FrmListaTransacciones$1.class

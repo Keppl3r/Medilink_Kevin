@@ -4,7 +4,7 @@
  */
 package dtos;
 
-import java.util.Date;
+
 
 /**
  * DTO con datos del pago de Stripe, está embebido en transacción.
