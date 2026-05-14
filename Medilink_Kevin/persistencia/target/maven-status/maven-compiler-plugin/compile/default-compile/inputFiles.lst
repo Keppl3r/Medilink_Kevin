@@ -1,3 +1,6 @@
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/adaptadores/AuditoriaDocumentoAdaptador.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/adaptadores/FacturaDocumentoAdaptador.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/adaptadores/TransaccionDocumentoAdaptador.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/conexion/MongoConection.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/excepciones/PersistenciaException.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/persistencia/Persistencia.java

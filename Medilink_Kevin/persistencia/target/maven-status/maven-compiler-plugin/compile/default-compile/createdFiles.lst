@@ -1,3 +1,6 @@
-excepciones/PersistenciaException.class
+adaptadores/FacturaDocumentoAdaptador.class
 conexion/MongoConection.class
+adaptadores/TransaccionDocumentoAdaptador.class
+excepciones/PersistenciaException.class
+adaptadores/AuditoriaDocumentoAdaptador.class
 persistencia/Persistencia.class
