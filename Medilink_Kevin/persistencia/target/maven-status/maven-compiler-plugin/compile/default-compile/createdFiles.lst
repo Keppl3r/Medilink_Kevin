@@ -1,1 +1,3 @@
-com/persistencia/Persistencia.class
+excepciones/PersistenciaException.class
+conexion/MongoConection.class
+persistencia/Persistencia.class
