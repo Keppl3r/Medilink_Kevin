@@ -1,1 +1,4 @@
-com/dtos/Dtos.class
+dtos/FacturaDTO.class
+dtos/FiltrosBusquedaDTO.class
+dtos/DetalleTransaccionDTO.class
+dtos/TransaccionDTO.class

@@ -1,1 +1,4 @@
-/home/keppler/Proyectos/Medilink/Medilink_Kevin/dtos/src/main/java/com/dtos/Dtos.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/dtos/src/main/java/dtos/DetalleTransaccionDTO.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/dtos/src/main/java/dtos/FacturaDTO.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/dtos/src/main/java/dtos/FiltrosBusquedaDTO.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/dtos/src/main/java/dtos/TransaccionDTO.java
