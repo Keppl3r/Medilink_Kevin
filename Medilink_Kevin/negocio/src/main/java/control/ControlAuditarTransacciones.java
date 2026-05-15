@@ -148,14 +148,14 @@ public class ControlAuditarTransacciones {
         }
     }
 
-    private TransaccionDTO mapearADTO(Transaccion t) {
+    private TransaccionDTO mapearADTO(Transaccion transaccion) {
         TransaccionDTO dto = new TransaccionDTO();
-        dto.setId(t.getId());
-        dto.setFecha(t.getFecha());
-        dto.setMontoRecibido(t.getMontoRecibido());
-        dto.setEstado(t.getEstado());
-        dto.setNombrePaciente(t.getNombrePaciente());
-        dto.setNombreMedico(t.getNombreMedico());
+        dto.setId(transaccion.getId());
+        dto.setFecha(transaccion.getFecha());
+        dto.setMontoRecibido(transaccion.getMontoRecibido());
+        dto.setEstado(transaccion.getEstado());
+        dto.setNombrePaciente(transaccion.getNombrePaciente());
+        dto.setNombreMedico(transaccion.getNombreMedico());
         return dto;
     }
 
@@ -167,27 +167,27 @@ public class ControlAuditarTransacciones {
         return lista;
     }
 
-    private DetalleTransaccionDTO mapearDetalleADTO(Transaccion t) {
+    private DetalleTransaccionDTO mapearDetalleADTO(Transaccion transaccion) {
         DetalleTransaccionDTO dto = new DetalleTransaccionDTO();
-        dto.setId(t.getId());
-        dto.setFecha(t.getFecha());
-        dto.setEstado(t.getEstado());
-        dto.setNombrePaciente(t.getNombrePaciente());
-        dto.setNombreMedico(t.getNombreMedico());
-        dto.setTipoConsulta(t.getTipoConsulta());
-        dto.setMontoEsperado(t.getMontoEsperado());
-        dto.setMontoRecibido(t.getMontoRecibido());
-        dto.setReferenciaStripe(t.getReferenciaStripe());
-        dto.setMensajeEstado(t.getMensajeEstado());
+        dto.setId(transaccion.getId());
+        dto.setFecha(transaccion.getFecha());
+        dto.setEstado(transaccion.getEstado());
+        dto.setNombrePaciente(transaccion.getNombrePaciente());
+        dto.setNombreMedico(transaccion.getNombreMedico());
+        dto.setTipoConsulta(transaccion.getTipoConsulta());
+        dto.setMontoEsperado(transaccion.getMontoEsperado());
+        dto.setMontoRecibido(transaccion.getMontoRecibido());
+        dto.setReferenciaStripe(transaccion.getReferenciaStripe());
+        dto.setMensajeEstado(transaccion.getMensajeEstado());
         return dto;
     }
 
-    private PagoDTO mapearPagoADTO(Transaccion t) {
+    private PagoDTO mapearPagoADTO(Transaccion transaccion) {
         PagoDTO dto = new PagoDTO();
-        dto.setReferenciaStripe(t.getReferenciaStripe());
-        dto.setMontoRecibido(t.getMontoRecibido());
-        dto.setMensajeEstado(t.getMensajeEstado());
-        dto.setIdTransaccion(t.getId());
+        dto.setReferenciaStripe(transaccion.getReferenciaStripe());
+        dto.setMontoRecibido(transaccion.getMontoRecibido());
+        dto.setMensajeEstado(transaccion.getMensajeEstado());
+        dto.setIdTransaccion(transaccion.getId());
         return dto;
     }
 }

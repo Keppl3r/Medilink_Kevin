@@ -1,8 +1,12 @@
 presentacion/Main.class
+presentacion/FrmInconsistencia.class
 presentacion/CoordinadorAuditarTransacciones.class
+presentacion/FrmFacturaNoEmitida.class
 presentacion/FrmInicio.class
 presentacion/FrmDetalle.class
 presentacion/FrmListaTransacciones.class
+presentacion/FrmSinResultados.class
 presentacion/FrmBusqueda.class
 presentacion/FrmConfirmacion.class
+presentacion/FrmErrorFechas.class
 presentacion/FrmListaTransacciones$1.class

@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package presentacion;
+
 import dtos.DetalleTransaccionDTO;
 import excepciones.NegocioException;
 import javafx.geometry.Insets;
@@ -11,11 +8,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.time.format.DateTimeFormatter;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 /**
- *
  * @author keppler
  */
 public class FrmDetalle extends VBox {
@@ -30,7 +26,7 @@ public class FrmDetalle extends VBox {
         setSpacing(20);
         setPadding(new Insets(20, 40, 20, 40));
 
-        Button btnAtras = new Button("← Atrás");
+        Button btnAtras = new Button("Atrás");
         btnAtras.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
         btnAtras.setOnAction(e -> Main.mostrarBusqueda());
 
@@ -40,14 +36,18 @@ public class FrmDetalle extends VBox {
         try {
             DetalleTransaccionDTO det = coordinador.obtenerDetalle(idTransaccion);
 
-            //tarjetas 
+            if (det.getReferenciaStripe() == null || det.getReferenciaStripe().isBlank()) {
+                FrmFacturaNoEmitida.mostrar();
+            }
+
+            // Tarjetas
             HBox tarjetas = new HBox(20,
                     crearTarjetaDetalle(det),
                     crearTarjetaMontos(det),
                     crearTarjetaFacturacion(det));
             tarjetas.setAlignment(Pos.CENTER);
 
-            //botones 
+            // Botones
             Button btnPendiente = new Button("Transacción pendiente");
             btnPendiente.setStyle("-fx-background-color: #E8A317; -fx-text-fill: white; "
                     + "-fx-font-size: 14px; -fx-padding: 12 30; -fx-background-radius: 8; -fx-cursor: hand;");
@@ -72,11 +72,16 @@ public class FrmDetalle extends VBox {
         GridPane grid = new GridPane();
         grid.setVgap(8);
         grid.setHgap(15);
-        grid.add(new Label("ID:"), 0, 0);       grid.add(new Label(d.getId()), 1, 0);
-        grid.add(new Label("Fecha:"), 0, 1);     grid.add(new Label(d.getFecha() != null ? d.getFecha().format(FMT) : ""), 1, 1);
-        grid.add(new Label("Paciente:"), 0, 2);  grid.add(new Label(d.getNombrePaciente()), 1, 2);
-        grid.add(new Label("Médico:"), 0, 3);    grid.add(new Label(d.getNombreMedico()), 1, 3);
-        grid.add(new Label("Tipo:"), 0, 4);      grid.add(new Label(d.getTipoConsulta()), 1, 4);
+        grid.add(new Label("ID:"), 0, 0);
+        grid.add(new Label(d.getId()), 1, 0);
+        grid.add(new Label("Fecha:"), 0, 1);
+        grid.add(new Label(d.getFecha() != null ? d.getFecha().format(FMT) : ""), 1, 1);
+        grid.add(new Label("Paciente:"), 0, 2);
+        grid.add(new Label(d.getNombrePaciente()), 1, 2);
+        grid.add(new Label("Médico:"), 0, 3);
+        grid.add(new Label(d.getNombreMedico()), 1, 3);
+        grid.add(new Label("Tipo:"), 0, 4);
+        grid.add(new Label(d.getTipoConsulta()), 1, 4);
         return envolverTarjeta("Detalle de transacción", grid);
     }
 
@@ -84,9 +89,12 @@ public class FrmDetalle extends VBox {
         GridPane grid = new GridPane();
         grid.setVgap(8);
         grid.setHgap(15);
-        grid.add(new Label("Monto esperado:"), 0, 0);   grid.add(new Label("$" + d.getMontoEsperado()), 1, 0);
-        grid.add(new Label("Monto recibido:"), 0, 1);   grid.add(new Label("$" + d.getMontoRecibido()), 1, 1);
-        grid.add(new Label("Mensaje Stripe:"), 0, 2);   grid.add(new Label(d.getMensajeEstado()), 1, 2);
+        grid.add(new Label("Monto esperado:"), 0, 0);
+        grid.add(new Label("$" + d.getMontoEsperado()), 1, 0);
+        grid.add(new Label("Monto recibido:"), 0, 1);
+        grid.add(new Label("$" + d.getMontoRecibido()), 1, 1);
+        grid.add(new Label("Mensaje Stripe:"), 0, 2);
+        grid.add(new Label(d.getMensajeEstado()), 1, 2);
         return envolverTarjeta("Montos", grid);
     }
 
@@ -94,8 +102,10 @@ public class FrmDetalle extends VBox {
         GridPane grid = new GridPane();
         grid.setVgap(8);
         grid.setHgap(15);
-        grid.add(new Label("Folio:"), 0, 0);    grid.add(new Label(d.getReferenciaStripe()), 1, 0);
-        grid.add(new Label("Estado:"), 0, 1);    grid.add(new Label(d.getEstado()), 1, 1);
+        grid.add(new Label("Folio:"), 0, 0);
+        grid.add(new Label(d.getReferenciaStripe() != null ? d.getReferenciaStripe() : "N/A"), 1, 0);
+        grid.add(new Label("Estado:"), 0, 1);
+        grid.add(new Label(d.getEstado()), 1, 1);
         return envolverTarjeta("Facturación", grid);
     }
 
@@ -115,10 +125,12 @@ public class FrmDetalle extends VBox {
             Main.mostrarConfirmacion("Transacción auditada",
                     "El registro ha sido actualizado correctamente");
         } catch (NegocioException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            if (e.getMessage().contains("monto") || e.getMessage().contains("Inconsistencia")
+                    || e.getMessage().contains("Stripe") || e.getMessage().contains("exitoso")) {
+                FrmInconsistencia.mostrar(e.getMessage());
+            } else {
+                FrmFacturaNoEmitida.mostrar();
+            }
         }
     }
 
@@ -128,10 +140,7 @@ public class FrmDetalle extends VBox {
             Main.mostrarConfirmacion("Transacción marcada pendiente",
                     "El registro ha sido actualizado correctamente");
         } catch (NegocioException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            FrmInconsistencia.mostrar(e.getMessage());
         }
     }
 }

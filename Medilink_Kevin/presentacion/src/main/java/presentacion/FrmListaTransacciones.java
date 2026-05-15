@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package presentacion;
 
 import dtos.TransaccionDTO;
@@ -18,7 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- *
  * @author keppler
  */
 public class FrmListaTransacciones extends VBox {
@@ -31,7 +26,7 @@ public class FrmListaTransacciones extends VBox {
         setSpacing(15);
         setPadding(new Insets(20, 40, 20, 40));
 
-        Button btnAtras = new Button("← Atrás");
+        Button btnAtras = new Button("Atrás");
         btnAtras.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
         btnAtras.setOnAction(e -> Main.mostrarBusqueda());
 
@@ -73,19 +68,33 @@ public class FrmListaTransacciones extends VBox {
         TableColumn<TransaccionDTO, Void> colAccion = new TableColumn<>("");
         colAccion.setPrefWidth(100);
         colAccion.setCellFactory(col -> new TableCell<>() {
-            private final Button btn = new Button("Detalle");
+            private final Button btn = new Button();
+
             {
-                btn.setStyle("-fx-background-color: #E8A317; -fx-text-fill: white; "
-                        + "-fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 12px;");
                 btn.setOnAction(e -> {
                     TransaccionDTO t = getTableView().getItems().get(getIndex());
                     Main.mostrarDetalle(t.getId());
                 });
             }
+
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    TransaccionDTO t = getTableView().getItems().get(getIndex());
+                    if ("Pendiente".equals(t.getEstado())) {
+                        btn.setText("Auditar");
+                        btn.setStyle("-fx-background-color: #1280E3; -fx-text-fill: white; "
+                                + "-fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 12px;");
+                    } else {
+                        btn.setText("Detalle");
+                        btn.setStyle("-fx-background-color: #E8A317; -fx-text-fill: white; "
+                                + "-fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 12px;");
+                    }
+                    setGraphic(btn);
+                }
             }
         });
 

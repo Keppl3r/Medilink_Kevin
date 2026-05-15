@@ -3,5 +3,5 @@
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/daos/DAOFactory.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/daos/TransaccionDAO.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/excepciones/PersistenciaException.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/insertDatos/insertDatos.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/interfaces/ITransaccionDAO.java
-/home/keppler/Proyectos/Medilink/Medilink_Kevin/persistencia/src/main/java/persistencia/Persistencia.java

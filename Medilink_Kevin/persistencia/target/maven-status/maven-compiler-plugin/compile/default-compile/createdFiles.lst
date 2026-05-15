@@ -1,6 +1,6 @@
 interfaces/ITransaccionDAO.class
 daos/DAOFactory.class
-persistencia/Persistencia.class
+insertDatos/insertDatos.class
 conexion/MongoConection.class
 adaptadores/TransaccionDocumentoAdaptador.class
 excepciones/PersistenciaException.class
