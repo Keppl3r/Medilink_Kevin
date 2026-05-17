@@ -11,6 +11,8 @@
         <module>negocios_auditarTransacciones</module>
         <module>presentacion_medilink</module>
         <module>datos_medilink</module>
+        <module>SS_Pagos</module>
+        <module>SS_Notificaciones</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

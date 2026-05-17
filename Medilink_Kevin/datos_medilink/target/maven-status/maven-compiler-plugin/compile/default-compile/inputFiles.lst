@@ -1,7 +1,10 @@
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/adaptadores/CitaDocumentoAdaptador.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/adaptadores/TransaccionDocumentoAdaptador.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/conexion/MongoConection.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/daos/CitaDAO.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/daos/DAOFactory.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/daos/DoctorDAO.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/daos/PacienteDAO.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/daos/TransaccionDAO.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/excepciones/PersistenciaException.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/insertDatos/insertDatos.java

@@ -4,6 +4,9 @@
  */
 package daos;
 
+import interfaces.ICitaDAO;
+import interfaces.IDoctorDAO;
+import interfaces.IPacienteDAO;
 import interfaces.ITransaccionDAO;
 
 /**
@@ -27,5 +30,17 @@ public class DAOFactory {
 
     public ITransaccionDAO getTransaccionDAO() {
         return new TransaccionDAO();
+    }
+
+    public ICitaDAO getCitaDAO() {
+        return new CitaDAO();
+    }
+
+    public IDoctorDAO getDoctorDAO() {
+        return new DoctorDAO();
+    }
+
+    public IPacienteDAO getPacienteDAO() {
+        return new PacienteDAO();
     }
 }
