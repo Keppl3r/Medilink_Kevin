@@ -1,9 +1,11 @@
 interfaces/ITransaccionDAO.class
 daos/DAOFactory.class
+adaptadores/PacienteDocumentoAdaptador.class
 adaptadores/TransaccionDocumentoAdaptador.class
 daos/DoctorDAO.class
 daos/TransaccionDAO.class
 interfaces/IPacienteDAO.class
+adaptadores/DoctorDocumentoAdaptador.class
 daos/CitaDAO.class
 interfaces/IDoctorDAO.class
 daos/PacienteDAO.class

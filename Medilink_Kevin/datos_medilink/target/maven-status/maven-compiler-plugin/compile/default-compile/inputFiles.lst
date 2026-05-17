@@ -1,4 +1,6 @@
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/adaptadores/CitaDocumentoAdaptador.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/adaptadores/DoctorDocumentoAdaptador.java
+/home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/adaptadores/PacienteDocumentoAdaptador.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/adaptadores/TransaccionDocumentoAdaptador.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/conexion/MongoConection.java
 /home/keppler/Proyectos/Medilink/Medilink_Kevin/datos_medilink/src/main/java/daos/CitaDAO.java
