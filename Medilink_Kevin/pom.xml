@@ -13,6 +13,7 @@
         <module>datos_medilink</module>
         <module>SS_Pagos</module>
         <module>SS_Notificaciones</module>
+        <module>negocios_agendarCitas</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
