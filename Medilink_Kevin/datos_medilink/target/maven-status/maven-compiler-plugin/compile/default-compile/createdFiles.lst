@@ -1,7 +1,11 @@
 interfaces/ITransaccionDAO.class
+interfaces/IDoctorDAO.class
 daos/DAOFactory.class
+adaptadores/CitaDocumentoAdaptador.class
+interfaces/ICitaDAO.class
 insertDatos/insertDatos.class
 conexion/MongoConection.class
 adaptadores/TransaccionDocumentoAdaptador.class
 excepciones/PersistenciaException.class
 daos/TransaccionDAO.class
+interfaces/IPacienteDAO.class
