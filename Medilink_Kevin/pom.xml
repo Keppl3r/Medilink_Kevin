@@ -6,11 +6,11 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>dominio</module>
-        <module>dtos</module>
-        <module>persistencia</module>
-        <module>negocio</module>
-        <module>presentacion</module>
+        <module>objetosNegocio</module>
+        <module>dtos_negocios</module>
+        <module>negocios_auditarTransacciones</module>
+        <module>presentacion_medilink</module>
+        <module>datos_medilink</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,0 +1,4 @@
+auditarTransacciones/excepciones/NegocioException.class
+auditarTransacciones/AuditarTransaccionesBO.class
+auditarTransacciones/IAuditarTransacciones.class
+auditarTransacciones/ControlAuditarTransacciones.class
