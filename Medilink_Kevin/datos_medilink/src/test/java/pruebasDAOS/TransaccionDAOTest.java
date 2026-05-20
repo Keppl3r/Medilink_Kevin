@@ -25,7 +25,7 @@ public class TransaccionDAOTest {
         // drop and create para mongo, porque da error en cada compilación por los ids
         MongoConection.obtenerBaseDatos().getCollection("transacciones").drop();
     }
-    
+
     private String generarIdLimpio() {
         return "TRANSACCION-" + (contadorId++);
     }
@@ -169,11 +169,9 @@ public class TransaccionDAOTest {
     public void testBuscarPorRangoNuloLanzaExcepcion() {
         TransaccionDAO dao = new TransaccionDAO();
 
-        // fechaInicio nula
         assertThrows(PersistenciaException.class,
                 () -> dao.buscarPorRango(null, LocalDateTime.now()));
 
-        // fechaFin nula
         assertThrows(PersistenciaException.class,
                 () -> dao.buscarPorRango(LocalDateTime.now(), null));
     }
@@ -182,17 +180,15 @@ public class TransaccionDAOTest {
     public void testBuscarPorRangoSinResultados() throws PersistenciaException {
         TransaccionDAO dao = new TransaccionDAO();
 
-        // buscar en año que ni al caso
         LocalDateTime inicio = LocalDateTime.of(1901, 1, 1, 0, 0);
         LocalDateTime fin = LocalDateTime.of(1950, 12, 31, 23, 59);
 
         List<Transaccion> lista = dao.buscarPorRango(inicio, fin);
 
-        // lista debe venir vacía, pero sin excepción
         assertNotNull(lista);
         assertTrue(lista.isEmpty());
     }
-    
+
     @Test
     public void testBuscarPorPacienteMayusculasMinusculas() throws PersistenciaException {
         TransaccionDAO dao = new TransaccionDAO();
@@ -201,28 +197,27 @@ public class TransaccionDAOTest {
         transaccion.setNombrePaciente("kEvIn MeNdOzA"); // Nombre con mayúsculas y minúsculas irregulares
         dao.insertar(transaccion);
 
-        // todo en minúsculas, debería encontrarlo
         List<Transaccion> lista = dao.buscarPorPaciente("kevin mendoza");
 
         assertFalse(lista.isEmpty());
     }
-    
+
     @Test
     public void testBuscarPorPacienteInexistente() throws PersistenciaException {
         TransaccionDAO dao = new TransaccionDAO();
         List<Transaccion> lista = dao.buscarPorPaciente("Manganito Tangamandapio Parangaricutimiricuaro");
-        
+
         assertNotNull(lista);
         assertTrue(lista.isEmpty());
     }
-    
+
     @Test
     public void testActualizarEstadoIdNuloLanzaExcepcion() {
         TransaccionDAO dao = new TransaccionDAO();
         assertThrows(PersistenciaException.class,
                 () -> dao.actualizarEstado(null, "Auditada"));
     }
-    
+
     @Test
     public void testAgregarAuditoriaIDNulosLanzaExcepcion() {
         TransaccionDAO dao = new TransaccionDAO();
@@ -233,12 +228,22 @@ public class TransaccionDAOTest {
         assertThrows(PersistenciaException.class,
                 () -> dao.agregarAuditoria("TRANSACCION-6969", null));
     }
-    
+
     @Test
     public void testBuscarPorIdEnBlancoLanzaExcepcion() {
         TransaccionDAO dao = new TransaccionDAO();
-        // id solo con espacios
+
         assertThrows(PersistenciaException.class, () -> dao.buscarPorId("   "));
     }
-   
+   @Test
+public void testEliminarExito() throws PersistenciaException {
+    TransaccionDAO dao = new TransaccionDAO();
+    String id = generarIdLimpio();
+    dao.insertar(crearTransaccionPrueba(id));
+
+    boolean eliminado = dao.eliminar(id);
+
+    assertTrue(eliminado);
+    assertNull(dao.buscarPorId(id));
+}
 }

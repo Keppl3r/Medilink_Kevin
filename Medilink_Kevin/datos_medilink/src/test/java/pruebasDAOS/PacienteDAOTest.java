@@ -5,7 +5,6 @@
 package pruebasDAOS;
 
 import daos.PacienteDAO;
-import adaptadores.PacienteDocumentoAdaptador;
 import conexion.MongoConection;
 import excepciones.PersistenciaException;
 import objetosNegocio.Paciente;
@@ -19,21 +18,19 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class PacienteDAOTest {
 
-    @BeforeAll
-    public static void prepararDatos() {
+     @BeforeAll
+    public static void prepararDatos() throws PersistenciaException {
         MongoConection.obtenerBaseDatos().getCollection("pacientes").drop();
-        PacienteDocumentoAdaptador adaptador = new PacienteDocumentoAdaptador();
-        MongoConection.obtenerBaseDatos().getCollection("pacientes")
-                .insertOne(adaptador.convertirADocumento(
-                        new Paciente(1, "Kevin Mendoza",
-                                "kevin@gmail.com", "6441234567")));
+        PacienteDAO dao = new PacienteDAO();
+        dao.guardar(new Paciente(1, "Kevin Mendoza",
+                "kevin@gmail.com", "6441234567"));
     }
 
     @Test
     public void testBuscarPorIdExito() throws PersistenciaException {
         PacienteDAO dao = new PacienteDAO();
         Paciente p = dao.buscarPorId(1);
-        
+
         assertNotNull(p);
         assertEquals("Kevin Mendoza", p.getNombre());
         assertEquals("kevin@gmail.com", p.getCorreo());
@@ -42,14 +39,14 @@ public class PacienteDAOTest {
     @Test
     public void testBuscarPorIdInexistente() throws PersistenciaException {
         PacienteDAO dao = new PacienteDAO();
-        
+
         assertNull(dao.buscarPorId(9999));
     }
 
     @Test
     public void testBuscarPorIdNuloLanzaExcepcion() {
         PacienteDAO dao = new PacienteDAO();
-       
+
         assertThrows(PersistenciaException.class, () -> dao.buscarPorId(null));
     }
 }

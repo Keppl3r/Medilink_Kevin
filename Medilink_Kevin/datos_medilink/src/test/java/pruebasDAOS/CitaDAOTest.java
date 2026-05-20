@@ -57,9 +57,9 @@ public class CitaDAOTest {
     public void testGuardarExito() throws PersistenciaException {
         CitaDAO dao = new CitaDAO();
         String id = generarId();
-       
+
         Cita resultado = dao.guardar(crearCitaPrueba(id));
-        
+
         assertNotNull(resultado);
         assertEquals(id, resultado.getId());
     }
@@ -67,7 +67,7 @@ public class CitaDAOTest {
     @Test
     public void testGuardarNuloLanzaExcepcion() {
         CitaDAO dao = new CitaDAO();
-       
+
         assertThrows(PersistenciaException.class, () -> dao.guardar(null));
     }
 
@@ -75,10 +75,10 @@ public class CitaDAOTest {
     public void testBuscarPorIdExito() throws PersistenciaException {
         CitaDAO dao = new CitaDAO();
         String id = generarId();
-       
+
         dao.guardar(crearCitaPrueba(id));
         Cita resultado = dao.buscarPorId(id);
-        
+
         assertNotNull(resultado);
         assertEquals(id, resultado.getId());
         assertEquals("Kevin Mendoza", resultado.getPaciente().getNombre());
@@ -88,21 +88,21 @@ public class CitaDAOTest {
     @Test
     public void testBuscarPorIdInexistente() throws PersistenciaException {
         CitaDAO dao = new CitaDAO();
-       
+
         assertNull(dao.buscarPorId("sabe-wey"));
     }
 
     @Test
     public void testBuscarPorIdNuloLanzaExcepcion() {
         CitaDAO dao = new CitaDAO();
-        
+
         assertThrows(PersistenciaException.class, () -> dao.buscarPorId(null));
     }
 
     @Test
     public void testBuscarPorIdEnBlancoLanzaExcepcion() {
         CitaDAO dao = new CitaDAO();
-        
+
         assertThrows(PersistenciaException.class, () -> dao.buscarPorId("   "));
     }
 
@@ -111,12 +111,30 @@ public class CitaDAOTest {
         CitaDAO dao = new CitaDAO();
         String id = generarId();
         Cita cita = crearCitaPrueba(id);
-        
+
         dao.guardar(cita);
         cita.setEstado("PAGADA");
         dao.guardar(cita);
         Cita actualizada = dao.buscarPorId(id);
-        
+
         assertEquals("PAGADA", actualizada.getEstado());
     }
+    
+    @Test
+public void testEliminarExito() throws PersistenciaException {
+    CitaDAO dao = new CitaDAO();
+    String id = generarId();
+    dao.guardar(crearCitaPrueba(id));
+
+    boolean eliminado = dao.eliminar(id);
+
+    assertTrue(eliminado);
+    assertNull(dao.buscarPorId(id));
+}
+
+@Test
+public void testEliminarInexistente() throws PersistenciaException {
+    CitaDAO dao = new CitaDAO();
+    assertFalse(dao.eliminar("NO-EXISTE-XYZ"));
+}
 }

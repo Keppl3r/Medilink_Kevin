@@ -5,7 +5,6 @@
 package pruebasDAOS;
 
 import daos.DoctorDAO;
-import adaptadores.DoctorDocumentoAdaptador;
 import conexion.MongoConection;
 import excepciones.PersistenciaException;
 import objetosNegocio.Doctor;
@@ -19,25 +18,22 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author keppler
  */
 public class DoctorDAOTest {
-  @BeforeAll
-    public static void prepararDatos() {
+
+    @BeforeAll
+    public static void prepararDatos() throws PersistenciaException {
         MongoConection.obtenerBaseDatos().getCollection("doctores").drop();
-        DoctorDocumentoAdaptador ad = new DoctorDocumentoAdaptador();
-        var coleccion = MongoConection.obtenerBaseDatos().getCollection("doctores");
-        coleccion.insertOne(ad.convertirADocumento(
-                new Doctor(10, "Dra. Althay Valle", "Cardiologia", 500.0, true)));
-        coleccion.insertOne(ad.convertirADocumento(
-                new Doctor(11, "Dr. Chespirito", "General", 300.0, true)));
-        coleccion.insertOne(ad.convertirADocumento(
-                new Doctor(12, "Dr. No Disponible", "Pediatria", 400.0, false)));
+        DoctorDAO dao = new DoctorDAO();
+        dao.guardar(new Doctor(10, "Dra. Althay Valle", "Cardiologia", 500.0, true));
+        dao.guardar(new Doctor(11, "Dr. Chespirito", "General", 300.0, true));
+        dao.guardar(new Doctor(12, "Dr. No Disponible", "Pediatria", 400.0, false));
     }
 
     @Test
     public void testBuscarDisponibles() throws PersistenciaException {
         DoctorDAO dao = new DoctorDAO();
-        
+
         List<Doctor> lista = dao.buscarDisponibles();
-        
+
         assertNotNull(lista);
         assertEquals(2, lista.size()); // solo 2 disponibles
     }
@@ -45,9 +41,9 @@ public class DoctorDAOTest {
     @Test
     public void testBuscarPorIdExito() throws PersistenciaException {
         DoctorDAO dao = new DoctorDAO();
-      
+
         Doctor d = dao.buscarPorId(10);
-       
+
         assertNotNull(d);
         assertEquals("Dra. Althay Valle", d.getNombre());
         assertTrue(d.getDisponible());
@@ -56,14 +52,14 @@ public class DoctorDAOTest {
     @Test
     public void testBuscarPorIdInexistente() throws PersistenciaException {
         DoctorDAO dao = new DoctorDAO();
-        
+
         assertNull(dao.buscarPorId(9999));
     }
 
     @Test
     public void testBuscarPorIdNuloLanzaExcepcion() {
         DoctorDAO dao = new DoctorDAO();
-       
+
         assertThrows(PersistenciaException.class, () -> dao.buscarPorId(null));
     }
 }
