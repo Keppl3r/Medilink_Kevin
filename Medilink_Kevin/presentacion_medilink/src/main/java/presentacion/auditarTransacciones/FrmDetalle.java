@@ -1,4 +1,4 @@
-package presentacion;
+package presentacion.auditarTransacciones;
 
 import dto.DetalleTransaccionDTO;
 import auditarTransacciones.excepciones.NegocioException;
@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import main.Main;
 
 /**
  * @author keppler
@@ -36,18 +37,16 @@ public class FrmDetalle extends VBox {
         try {
             DetalleTransaccionDTO det = coordinador.obtenerDetalle(idTransaccion);
 
-            if (det.getReferenciaStripe() == null || det.getReferenciaStripe().isBlank()) {
-                FrmFacturaNoEmitida.mostrar();
+           if (det.getReferenciaStripe() == null || det.getReferenciaStripe().isBlank()) {
+                Main.mostrarFacturaNoEmitida(() -> Main.mostrarDetalle(idTransaccion));
             }
 
-            // Tarjetas
-            HBox tarjetas = new HBox(20,
-                    crearTarjetaDetalle(det),
-                    crearTarjetaMontos(det),
+            //tarjetas
+            HBox tarjetas = new HBox(20,crearTarjetaDetalle(det), crearTarjetaMontos(det),
                     crearTarjetaFacturacion(det));
             tarjetas.setAlignment(Pos.CENTER);
 
-            // Botones
+            //botones
             Button btnPendiente = new Button("Transacción pendiente");
             btnPendiente.setStyle("-fx-background-color: #E8A317; -fx-text-fill: white; "
                     + "-fx-font-size: 14px; -fx-padding: 12 30; -fx-background-radius: 8; -fx-cursor: hand;");
@@ -125,11 +124,11 @@ public class FrmDetalle extends VBox {
             Main.mostrarConfirmacion("Transacción auditada",
                     "El registro ha sido actualizado correctamente");
         } catch (NegocioException e) {
-            if (e.getMessage().contains("monto") || e.getMessage().contains("Inconsistencia")
-                    || e.getMessage().contains("Stripe") || e.getMessage().contains("exitoso")) {
-                FrmInconsistencia.mostrar(e.getMessage());
+           if (e.getMessage().contains("monto")|| e.getMessage().contains("Inconsistencia")|| e.getMessage().contains("Stripe")
+                    || e.getMessage().contains("exitoso")) {
+                Main.mostrarInconsistencia(e.getMessage(), () -> Main.mostrarDetalle(idTransaccion));
             } else {
-                FrmFacturaNoEmitida.mostrar();
+                Main.mostrarFacturaNoEmitida( () -> Main.mostrarDetalle(idTransaccion));
             }
         }
     }
@@ -137,10 +136,9 @@ public class FrmDetalle extends VBox {
     private void marcarPendiente() {
         try {
             coordinador.marcarPendiente(idTransaccion);
-            Main.mostrarConfirmacion("Transacción marcada pendiente",
-                    "El registro ha sido actualizado correctamente");
+            Main.mostrarConfirmacion("Transacción marcada pendiente", "El registro ha sido actualizado correctamente");
         } catch (NegocioException e) {
-            FrmInconsistencia.mostrar(e.getMessage());
+            Main.mostrarInconsistencia(e.getMessage(), () -> Main.mostrarDetalle(idTransaccion));
         }
     }
 }

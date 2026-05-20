@@ -1,4 +1,5 @@
-package presentacion;
+package presentacion.auditarTransacciones;
+
 
 import dto.FiltrosBusquedaDTO;
 import dto.TransaccionDTO;
@@ -10,7 +11,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.util.List;
+import main.Main;
 
+/**
+ * 
+ * @author keppler
+ */
 public class FrmBusqueda extends VBox {
 
     private final CoordinadorAuditarTransacciones coordinador;
@@ -22,7 +28,7 @@ public class FrmBusqueda extends VBox {
 
         Button btnAtras = new Button("Atrás");
         btnAtras.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
-        btnAtras.setOnAction(e -> Main.mostrarInicio());
+        btnAtras.setOnAction(e -> Main.mostrarInicioAuditar());
 
         Label titulo = new Label("Búsqueda de transacciones");
         titulo.setStyle("-fx-font-size: 28px; -fx-font-weight: bold;");
@@ -60,7 +66,7 @@ public class FrmBusqueda extends VBox {
         btn.setMaxWidth(Double.MAX_VALUE);
         btn.setOnAction(e -> {
             if (dpInicio.getValue() == null || dpFin.getValue() == null) {
-                FrmErrorFechas.mostrar();       
+                Main.mostrarErrorFechas(() -> Main.mostrarBusqueda());
                 return;
             }
             FiltrosBusquedaDTO filtros = new FiltrosBusquedaDTO();
@@ -69,12 +75,12 @@ public class FrmBusqueda extends VBox {
             try {
                 List<TransaccionDTO> lista = coordinador.buscarPorPeriodo(filtros);
                 if (lista.isEmpty()) {
-                    FrmSinResultados.mostrar();  
+                    Main.mostrarSinResultados(() -> Main.mostrarBusqueda());
                 } else {
                     Main.mostrarLista(lista);
                 }
             } catch (NegocioException ex) {
-                FrmErrorFechas.mostrar();        
+                Main.mostrarErrorFechas(() -> Main.mostrarBusqueda());
             }
         });
 
@@ -100,23 +106,22 @@ public class FrmBusqueda extends VBox {
         btn.setMaxWidth(Double.MAX_VALUE);
         btn.setOnAction(e -> {
             if (txtNombre.getText().isBlank()) {
-                FrmSinResultados.mostrar();     
+                Main.mostrarSinResultados(() -> Main.mostrarBusqueda());
                 return;
             }
             FiltrosBusquedaDTO filtros = new FiltrosBusquedaDTO();
             filtros.setNombrePaciente(txtNombre.getText().trim());
             try {
-                List<TransaccionDTO> lista = coordinador.buscarPorPaciente(filtros);
+                List<TransaccionDTO> lista= coordinador.buscarPorPaciente(filtros);
                 if (lista.isEmpty()) {
-                    FrmSinResultados.mostrar();   
+                    Main.mostrarSinResultados(() -> Main.mostrarBusqueda());
                 } else {
                     Main.mostrarLista(lista);
                 }
             } catch (NegocioException ex) {
-                FrmSinResultados.mostrar();
+                Main.mostrarSinResultados(() -> Main.mostrarBusqueda());
             }
         });
-
         panel.getChildren().addAll(lbl, lblNombre, txtNombre, btn);
         return panel;
     }

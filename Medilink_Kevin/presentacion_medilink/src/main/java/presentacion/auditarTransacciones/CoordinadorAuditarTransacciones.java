@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package presentacion;
+package presentacion.auditarTransacciones;
 
+import dto.ReporteEstadoDTO;
 import auditarTransacciones.AuditarTransaccionesBO;
 import dto.DetalleTransaccionDTO;
 import dto.FiltrosBusquedaDTO;
@@ -52,4 +53,8 @@ public class CoordinadorAuditarTransacciones {
     public PagoDTO obtenerPago(String idTransaccion) throws NegocioException {
         return negocio.obtenerPago(idTransaccion);
     }
+    
+    public List<ReporteEstadoDTO> reportePorEstado() throws NegocioException {
+    return negocio.reportePorEstado();
+}
 }

@@ -1,4 +1,4 @@
-package presentacion;
+package presentacion.auditarTransacciones;
 
 import dto.TransaccionDTO;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import main.Main;
 
 /**
  * @author keppler
@@ -56,6 +57,11 @@ public class FrmListaTransacciones extends VBox {
         colMedico.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNombreMedico()));
         colMedico.setPrefWidth(180);
 
+        TableColumn<TransaccionDTO, String> colMotivo = new TableColumn<>("Motivo");
+        colMotivo.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getTipoConsulta() != null ? c.getValue().getTipoConsulta() : ""));
+        colMotivo.setPrefWidth(160);
+
         TableColumn<TransaccionDTO, String> colMonto = new TableColumn<>("Monto");
         colMonto.setCellValueFactory(c -> new SimpleStringProperty(
                 c.getValue().getMontoRecibido() != null ? "$" + c.getValue().getMontoRecibido() : ""));
@@ -97,8 +103,7 @@ public class FrmListaTransacciones extends VBox {
                 }
             }
         });
-
-        tabla.getColumns().addAll(colFecha, colPaciente, colMedico, colMonto, colEstado, colAccion);
+        tabla.getColumns().addAll(colFecha, colPaciente, colMedico, colMotivo, colMonto, colEstado, colAccion);
         return tabla;
     }
 }
