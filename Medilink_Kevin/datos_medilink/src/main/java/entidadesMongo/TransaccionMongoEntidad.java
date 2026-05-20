@@ -2,53 +2,54 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package objetosNegocio;
+package entidadesMongo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.types.ObjectId;
 
 /**
- * clase de dominio de transacción, representa una consulta realizada y ya cobrada
  *
  * @author keppler
  */
-public class Transaccion {
+public class TransaccionMongoEntidad {
 
-    private String id; 
+    @BsonId
+    private ObjectId id;
+    private String folio;          
     private LocalDateTime fecha;
-    private String estado; //pendientte o auditada
-
-    //embebido 
+    private String estado;
     private Integer idPaciente;
     private String nombrePaciente;
-
-    //embebido
     private Integer idMedico;
     private String nombreMedico;
-
-    //embebido 
     private String tipoConsulta;
     private Double montoEsperado;
-
-    //embebido
     private String referenciaStripe;
     private Double montoRecibido;
-    private String mensajeEstado; //exitoso o rechazado
+    private String mensajeEstado;
+    private List<AuditoriaEmbebida> auditorias;
 
-    // embebidas 
-    private List<Auditoria> auditorias;
-
-    public Transaccion() {
+    public TransaccionMongoEntidad() {
         this.auditorias = new ArrayList<>();
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public String getFolio() {
+        return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
     }
 
     public LocalDateTime getFecha() {
@@ -139,12 +140,11 @@ public class Transaccion {
         this.mensajeEstado = mensajeEstado;
     }
 
-    public List<Auditoria> getAuditorias() {
+    public List<AuditoriaEmbebida> getAuditorias() {
         return auditorias;
     }
 
-    public void setAuditorias(List<Auditoria> auditorias) {
+    public void setAuditorias(List<AuditoriaEmbebida> auditorias) {
         this.auditorias = auditorias;
     }
-
 }

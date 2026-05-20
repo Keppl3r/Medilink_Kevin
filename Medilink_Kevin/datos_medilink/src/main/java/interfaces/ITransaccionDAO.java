@@ -31,4 +31,6 @@ public interface ITransaccionDAO {
     public void agregarAuditoria(String idTransaccion, Auditoria auditoria) throws PersistenciaException;
 
     public Transaccion insertar(Transaccion transaccion) throws PersistenciaException;
+    
+    public boolean eliminar(String id) throws PersistenciaException;
 }

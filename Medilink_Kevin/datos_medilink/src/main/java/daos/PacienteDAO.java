@@ -8,9 +8,9 @@ import adaptadores.PacienteDocumentoAdaptador;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import conexion.MongoConection;
+import entidadesMongo.PacienteMongoEntidad;
 import excepciones.PersistenciaException;
 import interfaces.IPacienteDAO;
-import org.bson.Document;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetosNegocio.Paciente;
@@ -23,14 +23,21 @@ public class PacienteDAO implements IPacienteDAO {
 
     private static final Logger LOG = Logger.getLogger(PacienteDAO.class.getName());
 
-    private final MongoCollection<Document> coleccion;
+    private final MongoCollection<PacienteMongoEntidad> coleccion;
     private final PacienteDocumentoAdaptador adaptador;
 
     public PacienteDAO() {
-        this.coleccion = MongoConection
-                .obtenerBaseDatos()
-                .getCollection("pacientes");
+        this.coleccion = MongoConection.obtenerColeccionPacientes();
         this.adaptador = new PacienteDocumentoAdaptador();
+    }
+
+    public Paciente guardar(Paciente paciente) throws PersistenciaException {
+        if (paciente == null) {
+            throw new PersistenciaException("El paciente no puede ser nulo");
+        }
+        LOG.log(Level.INFO, "Guardando paciente con ID: {0}", paciente.getId());
+        coleccion.insertOne(adaptador.convertirAMongo(paciente));
+        return paciente;
     }
 
     @Override
@@ -39,10 +46,11 @@ public class PacienteDAO implements IPacienteDAO {
             throw new PersistenciaException("El ID no puede ser nulo");
         }
         LOG.log(Level.INFO, "Buscando paciente con ID: {0}", id);
-        Document doc = coleccion.find(Filters.eq("_id", id)).first();
+        PacienteMongoEntidad doc = coleccion.find(
+                Filters.eq("idNegocio", id)).first();
         if (doc == null) {
             return null;
         }
-        return adaptador.convertirAEntidad(doc);
+        return adaptador.convertirADominio(doc);
     }
 }

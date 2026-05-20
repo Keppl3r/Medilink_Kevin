@@ -4,15 +4,12 @@
  */
 package adaptadores;
 
+import entidadesMongo.CitaMongoEntidad;
+import entidadesMongo.DoctorEmbebido;
+import entidadesMongo.PacienteEmbebido;
 import objetosNegocio.Cita;
 import objetosNegocio.Doctor;
 import objetosNegocio.Paciente;
-import java.util.ArrayList;
-import java.util.List;
-import org.bson.Document;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 /**
  * Convierte entre Transaccion y un documento de Mongo
@@ -21,76 +18,64 @@ import java.util.Date;
  */
 public class CitaDocumentoAdaptador {
 
-    public Document convertirADocumento(Cita cita) {
-        Document doc = new Document("_id", cita.getId())
-                .append("fecha", aDate(cita.getFecha()))
-                .append("hora", cita.getHora())
-                .append("ubicacion", cita.getUbicacion())
-                .append("motivo", cita.getMotivo())
-                .append("sintomas", cita.getSintomas())
-                .append("estado", cita.getEstado())
-                .append("monto", cita.getMonto())
-                .append("paciente", new Document("id", cita.getPaciente().getId())
-                        .append("nombre", cita.getPaciente().getNombre()))
-                .append("medico", new Document("id", cita.getMedico().getId())
-                        .append("nombre", cita.getMedico().getNombre())
-                        .append("especialidad", cita.getMedico().getEspecialidad()))
-                .append("pago", new Document("referencia_stripe", cita.getReferenciaStripe())
-                        .append("monto_pagado", cita.getMontoPagado())
-                        .append("mensaje_estado_pago", cita.getMensajeEstadoPago()));
-        return doc;
+   
+    public CitaMongoEntidad convertirAMongo(Cita c) {
+        if (c == null) return null;
+        CitaMongoEntidad m = new CitaMongoEntidad();
+        m.setFolio(c.getId());
+        m.setFecha(c.getFecha());
+        m.setHora(c.getHora());
+        m.setUbicacion(c.getUbicacion());
+        m.setMotivo(c.getMotivo());
+        m.setSintomas(c.getSintomas());
+        m.setEstado(c.getEstado());
+        m.setMonto(c.getMonto());
+        if (c.getPaciente() != null) {
+            PacienteEmbebido pe = new PacienteEmbebido();
+            pe.setId(c.getPaciente().getId());
+            pe.setNombre(c.getPaciente().getNombre());
+            m.setPaciente(pe);
+        }
+        if (c.getMedico() != null) {
+            DoctorEmbebido de = new DoctorEmbebido();
+            de.setId(c.getMedico().getId());
+            de.setNombre(c.getMedico().getNombre());
+            de.setEspecialidad(c.getMedico().getEspecialidad());
+            m.setMedico(de);
+        }
+        m.setReferenciaStripe(c.getReferenciaStripe());
+        m.setMontoPagado(c.getMontoPagado());
+        m.setMensajeEstadoPago(c.getMensajeEstadoPago());
+        return m;
     }
 
-    public Cita convertirAEntidad(Document doc) {
-        Cita cita = new Cita();
-        cita.setId(doc.getString("_id"));
-        cita.setFecha(aLocalDateTime(doc.getDate("fecha")));
-        cita.setHora(doc.getString("hora"));
-        cita.setUbicacion(doc.getString("ubicacion"));
-        cita.setMotivo(doc.getString("motivo"));
-        cita.setSintomas(doc.getList("sintomas", String.class));
-        cita.setEstado(doc.getString("estado"));
-        cita.setMonto(doc.getDouble("monto"));
-
-        Document pac = doc.get("paciente", Document.class);
-        if (pac != null) {
+    public Cita convertirADominio(CitaMongoEntidad m) {
+        if (m == null) return null;
+        Cita c = new Cita();
+        c.setId(m.getFolio());
+        c.setFecha(m.getFecha());
+        c.setHora(m.getHora());
+        c.setUbicacion(m.getUbicacion());
+        c.setMotivo(m.getMotivo());
+        c.setSintomas(m.getSintomas());
+        c.setEstado(m.getEstado());
+        c.setMonto(m.getMonto());
+        if (m.getPaciente() != null) {
             Paciente p = new Paciente();
-            p.setId(pac.getInteger("id"));
-            p.setNombre(pac.getString("nombre"));
-            cita.setPaciente(p);
+            p.setId(m.getPaciente().getId());
+            p.setNombre(m.getPaciente().getNombre());
+            c.setPaciente(p);
         }
-
-        Document med = doc.get("medico", Document.class);
-        if (med != null) {
+        if (m.getMedico() != null) {
             Doctor d = new Doctor();
-            d.setId(med.getInteger("id"));
-            d.setNombre(med.getString("nombre"));
-            d.setEspecialidad(med.getString("especialidad"));
-            cita.setMedico(d);
+            d.setId(m.getMedico().getId());
+            d.setNombre(m.getMedico().getNombre());
+            d.setEspecialidad(m.getMedico().getEspecialidad());
+            c.setMedico(d);
         }
-
-        Document pago = doc.get("pago", Document.class);
-        if (pago != null) {
-            cita.setReferenciaStripe(pago.getString("referencia_stripe"));
-            cita.setMontoPagado(pago.getDouble("monto_pagado"));
-            cita.setMensajeEstadoPago(pago.getString("mensaje_estado_pago"));
-        }
-
-        return cita;
+        c.setReferenciaStripe(m.getReferenciaStripe());
+        c.setMontoPagado(m.getMontoPagado());
+        c.setMensajeEstadoPago(m.getMensajeEstadoPago());
+        return c;
     }
-
-    private Date aDate(LocalDateTime ldt) {
-        if (ldt == null) {
-            return null;
-        }
-        return Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
-    }
-
-    private LocalDateTime aLocalDateTime(Date date) {
-        if (date == null) {
-            return null;
-        }
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-    }
-
 }

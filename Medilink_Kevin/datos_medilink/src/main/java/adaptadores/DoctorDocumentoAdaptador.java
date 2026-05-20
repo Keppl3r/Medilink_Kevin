@@ -4,8 +4,8 @@
  */
 package adaptadores;
 
+import entidadesMongo.DoctorMongoEntidad;
 import objetosNegocio.Doctor;
-import org.bson.Document;
 
 /**
  *
@@ -13,21 +13,25 @@ import org.bson.Document;
  */
 public class DoctorDocumentoAdaptador {
 
-    public Document convertirADocumento(Doctor doctor) {
-        return new Document("_id", doctor.getId())
-                .append("nombre", doctor.getNombre())
-                .append("especialidad", doctor.getEspecialidad())
-                .append("costo_consulta", doctor.getCostoConsulta())
-                .append("disponible", doctor.getDisponible());
+   public DoctorMongoEntidad convertirAMongo(Doctor d) {
+        if (d == null) return null;
+        DoctorMongoEntidad m = new DoctorMongoEntidad();
+        m.setIdNegocio(d.getId());
+        m.setNombre(d.getNombre());
+        m.setEspecialidad(d.getEspecialidad());
+        m.setCostoConsulta(d.getCostoConsulta());
+        m.setDisponible(d.getDisponible());
+        return m;
     }
 
-    public Doctor convertirAEntidad(Document doc) {
-        Doctor doctor = new Doctor();
-        doctor.setId(doc.getInteger("_id"));
-        doctor.setNombre(doc.getString("nombre"));
-        doctor.setEspecialidad(doc.getString("especialidad"));
-        doctor.setCostoConsulta(doc.getDouble("costo_consulta"));
-        doctor.setDisponible(doc.getBoolean("disponible"));
-        return doctor;
+    public Doctor convertirADominio(DoctorMongoEntidad m) {
+        if (m == null) return null;
+        Doctor d = new Doctor();
+        d.setId(m.getIdNegocio());
+        d.setNombre(m.getNombre());
+        d.setEspecialidad(m.getEspecialidad());
+        d.setCostoConsulta(m.getCostoConsulta());
+        d.setDisponible(m.getDisponible());
+        return d;
     }
 }

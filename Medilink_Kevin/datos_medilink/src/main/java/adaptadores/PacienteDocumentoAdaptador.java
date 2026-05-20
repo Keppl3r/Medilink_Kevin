@@ -4,8 +4,8 @@
  */
 package adaptadores;
 
+import entidadesMongo.PacienteMongoEntidad;
 import objetosNegocio.Paciente;
-import org.bson.Document;
 
 /**
  *
@@ -13,19 +13,21 @@ import org.bson.Document;
  */
 public class PacienteDocumentoAdaptador {
 
-    public Document convertirADocumento(Paciente paciente) {
-        return new Document("_id", paciente.getId())
-                .append("nombre", paciente.getNombre())
-                .append("correo", paciente.getCorreo())
-                .append("telefono", paciente.getTelefono());
+    public PacienteMongoEntidad convertirAMongo(Paciente p) {
+        if (p == null) return null;
+        PacienteMongoEntidad m = new PacienteMongoEntidad();
+        m.setIdNegocio(p.getId());
+        m.setNombre(p.getNombre());
+        m.setCorreo(p.getCorreo());
+        return m;
     }
 
-    public Paciente convertirAEntidad(Document doc) {
-        Paciente paciente = new Paciente();
-        paciente.setId(doc.getInteger("_id"));
-        paciente.setNombre(doc.getString("nombre"));
-        paciente.setCorreo(doc.getString("correo"));
-        paciente.setTelefono(doc.getString("telefono"));
-        return paciente;
+    public Paciente convertirADominio(PacienteMongoEntidad m) {
+        if (m == null) return null;
+        Paciente p = new Paciente();
+        p.setId(m.getIdNegocio());
+        p.setNombre(m.getNombre());
+        p.setCorreo(m.getCorreo());
+        return p;
     }
 }

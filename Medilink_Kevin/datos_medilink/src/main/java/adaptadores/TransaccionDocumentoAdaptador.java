@@ -4,14 +4,12 @@
  */
 package adaptadores;
 
+import entidadesMongo.AuditoriaEmbebida;
+import entidadesMongo.TransaccionMongoEntidad;
 import objetosNegocio.Auditoria;
 import objetosNegocio.Transaccion;
 import java.util.ArrayList;
 import java.util.List;
-import org.bson.Document;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 /**
  * Convierte entre Transaccion y un documento de Mongo
@@ -20,112 +18,67 @@ import java.util.Date;
  */
 public class TransaccionDocumentoAdaptador {
 
-    public Document convertirADocumento(Transaccion transaccion) {
-        Document doc = new Document("_id", transaccion.getId())
-                .append("fecha", aDate(transaccion.getFecha()))                .append("estado", transaccion.getEstado())
-                .append("paciente", new Document("id", transaccion.getIdPaciente())
-                .append("nombre", transaccion.getNombrePaciente()))
-                .append("medico", new Document("id", transaccion.getIdMedico())
-                .append("nombre", transaccion.getNombreMedico()))
-                .append("servicio", new Document("tipo_consulta", transaccion.getTipoConsulta())
-                .append("monto_esperado", transaccion.getMontoEsperado()))
-                .append("pago", new Document("referencia_stripe", transaccion.getReferenciaStripe())
-                        .append("monto_recibido", transaccion.getMontoRecibido())
-                        .append("mensaje_estado", transaccion.getMensajeEstado()));
+    public TransaccionMongoEntidad convertirAMongo(Transaccion t) {
+        if (t == null) return null;
+        TransaccionMongoEntidad m = new TransaccionMongoEntidad();
+        m.setFolio(t.getId());
+        m.setFecha(t.getFecha());
+        m.setEstado(t.getEstado());
+        m.setIdPaciente(t.getIdPaciente());
+        m.setNombrePaciente(t.getNombrePaciente());
+        m.setIdMedico(t.getIdMedico());
+        m.setNombreMedico(t.getNombreMedico());
+        m.setTipoConsulta(t.getTipoConsulta());
+        m.setMontoEsperado(t.getMontoEsperado());
+        m.setReferenciaStripe(t.getReferenciaStripe());
+        m.setMontoRecibido(t.getMontoRecibido());
+        m.setMensajeEstado(t.getMensajeEstado());
 
-        // Auditorías
-        List<Document> auditDocs = new ArrayList<>();
-        if (transaccion.getAuditorias() != null) {
-            for (Auditoria a : transaccion.getAuditorias()) {
-                auditDocs.add(auditoriaADocumento(a));
+        List<AuditoriaEmbebida> lista = new ArrayList<>();
+        if (t.getAuditorias() != null) {
+            for (Auditoria a : t.getAuditorias()) {
+                AuditoriaEmbebida ae = new AuditoriaEmbebida();
+                ae.setIdAuditoria(a.getIdAuditoria());
+                ae.setFechaAuditoria(a.getFechaAuditoria());
+                ae.setResultado(a.getResultado());
+                ae.setIdAdministrador(a.getIdAdministrador());
+                ae.setNombreAdministrador(a.getNombreAdministrador());
+                lista.add(ae);
             }
         }
-        doc.append("auditorias", auditDocs);
-        return doc;
+        m.setAuditorias(lista);
+        return m;
     }
 
-    public Transaccion convertirAEntidad(Document doc) {
-        Transaccion transaccion = new Transaccion();
-        transaccion.setId(doc.getString("_id"));
-        transaccion.setFecha(aLocalDateTime(doc.getDate("fecha")));
-        transaccion.setEstado(doc.getString("estado"));
+    public Transaccion convertirADominio(TransaccionMongoEntidad m) {
+        if (m == null) return null;
+        Transaccion t = new Transaccion();
+        t.setId(m.getFolio());
+        t.setFecha(m.getFecha());
+        t.setEstado(m.getEstado());
+        t.setIdPaciente(m.getIdPaciente());
+        t.setNombrePaciente(m.getNombrePaciente());
+        t.setIdMedico(m.getIdMedico());
+        t.setNombreMedico(m.getNombreMedico());
+        t.setTipoConsulta(m.getTipoConsulta());
+        t.setMontoEsperado(m.getMontoEsperado());
+        t.setReferenciaStripe(m.getReferenciaStripe());
+        t.setMontoRecibido(m.getMontoRecibido());
+        t.setMensajeEstado(m.getMensajeEstado());
 
-        // Paciente 
-        Document pac = doc.get("paciente", Document.class);
-        if (pac != null) {
-            transaccion.setIdPaciente(pac.getInteger("id"));
-            transaccion.setNombrePaciente(pac.getString("nombre"));
-        }
-
-        // Médico 
-        Document med = doc.get("medico", Document.class);
-        if (med != null) {
-            transaccion.setIdMedico(med.getInteger("id"));
-            transaccion.setNombreMedico(med.getString("nombre"));
-        }
-
-        // Servicio 
-        Document serv = doc.get("servicio", Document.class);
-        if (serv != null) {
-            transaccion.setTipoConsulta(serv.getString("tipo_consulta"));
-            transaccion.setMontoEsperado(serv.getDouble("monto_esperado"));
-        }
-
-        // Pago 
-        Document pago = doc.get("pago", Document.class);
-        if (pago != null) {
-            transaccion.setReferenciaStripe(pago.getString("referencia_stripe"));
-            transaccion.setMontoRecibido(pago.getDouble("monto_recibido"));
-            transaccion.setMensajeEstado(pago.getString("mensaje_estado"));
-        }
-
-        // Auditorías 
-        List<Document> auditDocs = doc.getList("auditorias", Document.class);
-        if (auditDocs != null) {
-            List<Auditoria> auditorias = new ArrayList<>();
-            for (Document aDoc : auditDocs) {
-                auditorias.add(documentoAAuditoria(aDoc));
+        List<Auditoria> lista = new ArrayList<>();
+        if (m.getAuditorias() != null) {
+            for (AuditoriaEmbebida ae : m.getAuditorias()) {
+                Auditoria a = new Auditoria();
+                a.setIdAuditoria(ae.getIdAuditoria());
+                a.setFechaAuditoria(ae.getFechaAuditoria());
+                a.setResultado(ae.getResultado());
+                a.setIdAdministrador(ae.getIdAdministrador());
+                a.setNombreAdministrador(ae.getNombreAdministrador());
+                lista.add(a);
             }
-            transaccion.setAuditorias(auditorias);
         }
-
-        return transaccion;
+        t.setAuditorias(lista);
+        return t;
     }
-
-    public Document auditoriaADocumento(Auditoria a) {
-        return new Document("id_auditoria", a.getIdAuditoria())
-                .append("fecha_auditoria", aDate(a.getFechaAuditoria()))
-                .append("resultado", a.getResultado())
-                .append("administrador", new Document("id", a.getIdAdministrador())
-                        .append("nombre", a.getNombreAdministrador()));
-    }
-
-    private Auditoria documentoAAuditoria(Document doc) {
-        Auditoria auditoria = new Auditoria();
-        auditoria.setIdAuditoria(doc.getInteger("id_auditoria"));
-        auditoria.setFechaAuditoria(aLocalDateTime(doc.getDate("fecha_auditoria")));        
-        auditoria.setResultado(doc.getString("resultado"));
-        Document admin = doc.get("administrador", Document.class);
-        if (admin != null) {
-            auditoria.setIdAdministrador(admin.getInteger("id"));
-            auditoria.setNombreAdministrador(admin.getString("nombre"));
-        }
-        return auditoria;
-    }
-
-    //utilerías para convertir de Date a LocalDateTime para poder usar el now y no batallar
-    private Date aDate(LocalDateTime localDateTime) {
-        if (localDateTime == null) {
-            return null;
-        }
-        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-    }
-
-    private LocalDateTime aLocalDateTime(Date date) {
-        if (date == null) {
-            return null;
-        }
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-    }
-
 }

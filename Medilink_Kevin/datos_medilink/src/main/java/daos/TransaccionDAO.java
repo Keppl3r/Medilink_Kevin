@@ -8,18 +8,18 @@ import adaptadores.TransaccionDocumentoAdaptador;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.InsertOneResult;
 import conexion.MongoConection;
-import objetosNegocio.Auditoria;
-import objetosNegocio.Transaccion;
+import entidadesMongo.AuditoriaEmbebida;
+import entidadesMongo.TransaccionMongoEntidad;
 import excepciones.PersistenciaException;
 import interfaces.ITransaccionDAO;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.bson.Document;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import objetosNegocio.Auditoria;
+import objetosNegocio.Transaccion;
 
 /**
  *
@@ -29,13 +29,11 @@ public class TransaccionDAO implements ITransaccionDAO {
 
     private static final Logger LOG = Logger.getLogger(TransaccionDAO.class.getName());
 
-    private final MongoCollection<Document> coleccion;
+    private final MongoCollection<TransaccionMongoEntidad> coleccion;
     private final TransaccionDocumentoAdaptador adaptador;
 
     public TransaccionDAO() {
-        this.coleccion = MongoConection
-                .obtenerBaseDatos()
-                .getCollection("transacciones");
+        this.coleccion = MongoConection.obtenerColeccionTransacciones();
         this.adaptador = new TransaccionDocumentoAdaptador();
     }
 
@@ -44,12 +42,9 @@ public class TransaccionDAO implements ITransaccionDAO {
         if (transaccion == null) {
             throw new PersistenciaException("La transacción no puede ser nula");
         }
-        LOG.log(Level.INFO, "Insertando nueva transaccion con ID: {0}", transaccion.getId());
-        Document doc = adaptador.convertirADocumento(transaccion);
-        InsertOneResult resultado = coleccion.insertOne(doc);
-        if (resultado.getInsertedId() == null) {
-            throw new PersistenciaException("Error al insertar la transacción");
-        }
+        LOG.log(Level.INFO, "Insertando nueva transaccion con ID: {0}",
+                transaccion.getId());
+        coleccion.insertOne(adaptador.convertirAMongo(transaccion));
         return transaccion;
     }
 
@@ -59,11 +54,12 @@ public class TransaccionDAO implements ITransaccionDAO {
             throw new PersistenciaException("El ID no puede ser nulo o vacío");
         }
         LOG.log(Level.INFO, "Buscando transaccion en Mongo con ID: {0}", id);
-        Document doc = coleccion.find(Filters.eq("_id", id)).first();
+        TransaccionMongoEntidad doc = coleccion.find(
+                Filters.eq("folio", id)).first();
         if (doc == null) {
             return null;
         }
-        return adaptador.convertirAEntidad(doc);
+        return adaptador.convertirADominio(doc);
     }
 
     @Override
@@ -74,14 +70,14 @@ public class TransaccionDAO implements ITransaccionDAO {
         }
         LOG.log(Level.INFO, "Buscando transacciones por rango de fechas");
 
-        List<Document> docs = coleccion.find(Filters.and(
+        List<TransaccionMongoEntidad> docs = coleccion.find(Filters.and(
                 Filters.gte("fecha", inicio),
                 Filters.lte("fecha", fin)))
                 .into(new ArrayList<>());
 
         List<Transaccion> lista = new ArrayList<>();
-        for (Document doc : docs) {
-            lista.add(adaptador.convertirAEntidad(doc));
+        for (TransaccionMongoEntidad doc : docs) {
+            lista.add(adaptador.convertirADominio(doc));
         }
         return lista;
     }
@@ -92,21 +88,21 @@ public class TransaccionDAO implements ITransaccionDAO {
         if (nombre == null || nombre.isBlank()) {
             throw new PersistenciaException("El nombre no puede estar vacío");
         }
-        LOG.log(Level.INFO, "Ejecutando busqueda con regex para paciente: {0}", nombre); 
-        List<Document> docs = coleccion.find(
-                Filters.regex("paciente.nombre", nombre, "i"))
+        LOG.log(Level.INFO, "Ejecutando busqueda con regex para paciente: {0}", nombre);
+        List<TransaccionMongoEntidad> docs = coleccion.find(
+                Filters.regex("nombrePaciente", nombre, "i"))
                 .into(new ArrayList<>());
 
         List<Transaccion> lista = new ArrayList<>();
-        for (Document doc : docs) {
-            lista.add(adaptador.convertirAEntidad(doc));
+        for (TransaccionMongoEntidad doc : docs) {
+            lista.add(adaptador.convertirADominio(doc));
         }
         return lista;
     }
 
     @Override
     public Integer contarPendientes() throws PersistenciaException {
-        LOG.log(Level.INFO, "Contando transacciones pendientes"); 
+        LOG.log(Level.INFO, "Contando transacciones pendientes");
         long count = coleccion.countDocuments(
                 Filters.eq("estado", "Pendiente"));
         return (int) count;
@@ -118,9 +114,9 @@ public class TransaccionDAO implements ITransaccionDAO {
         if (id == null) {
             throw new PersistenciaException("El ID no puede ser nulo");
         }
-        LOG.log(Level.INFO, "Actualizando estado en transaccion: {0}", id); 
+        LOG.log(Level.INFO, "Actualizando estado en transaccion: {0}", id);
         coleccion.updateOne(
-                Filters.eq("_id", id),
+                Filters.eq("folio", id),
                 Updates.set("estado", estado));
     }
 
@@ -130,13 +126,29 @@ public class TransaccionDAO implements ITransaccionDAO {
         if (idTransaccion == null || auditoria == null) {
             throw new PersistenciaException("ID y auditoría son requeridos");
         }
-        LOG.log(Level.INFO, "Insertando subdocumento de auditoria en transaccion: {0}", idTransaccion); 
+        LOG.log(Level.INFO, "Insertando subdocumento de auditoria en transaccion: {0}",
+                idTransaccion);
+        AuditoriaEmbebida ae = new AuditoriaEmbebida();
+        ae.setIdAuditoria(auditoria.getIdAuditoria());
+        ae.setFechaAuditoria(auditoria.getFechaAuditoria());
+        ae.setResultado(auditoria.getResultado());
+        ae.setIdAdministrador(auditoria.getIdAdministrador());
+        ae.setNombreAdministrador(auditoria.getNombreAdministrador());
+
         coleccion.updateOne(
-                Filters.eq("_id", idTransaccion),
+                Filters.eq("folio", idTransaccion),
                 Updates.combine(
                         Updates.set("estado", auditoria.getResultado()),
-                        Updates.push("auditorias",
-                                adaptador.auditoriaADocumento(auditoria))
-                ));
+                        Updates.push("auditorias", ae)));
     }
+    
+    @Override
+public boolean eliminar(String id) throws PersistenciaException {
+    if (id == null || id.isBlank()) {
+        throw new PersistenciaException("El ID no puede ser nulo o vacío");
+    }
+    LOG.log(Level.INFO, "Eliminando transaccion con ID: {0}", id);
+    return coleccion.deleteOne(Filters.eq("folio", id))
+            .getDeletedCount() > 0;
+}
 }

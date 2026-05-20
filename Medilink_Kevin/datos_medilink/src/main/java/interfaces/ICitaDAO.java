@@ -16,4 +16,6 @@ public interface ICitaDAO {
     Cita guardar(Cita cita) throws PersistenciaException;
 
     Cita buscarPorId(String id) throws PersistenciaException;
+    
+    boolean eliminar(String id) throws PersistenciaException;
 }

@@ -7,11 +7,10 @@ package daos;
 import adaptadores.CitaDocumentoAdaptador;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.result.InsertOneResult;
 import conexion.MongoConection;
+import entidadesMongo.CitaMongoEntidad;
 import excepciones.PersistenciaException;
 import interfaces.ICitaDAO;
-import org.bson.Document;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetosNegocio.Cita;
@@ -24,13 +23,11 @@ public class CitaDAO implements ICitaDAO {
 
     private static final Logger LOG = Logger.getLogger(CitaDAO.class.getName());
 
-    private final MongoCollection<Document> coleccion;
+    private final MongoCollection<CitaMongoEntidad> coleccion;
     private final CitaDocumentoAdaptador adaptador;
 
     public CitaDAO() {
-        this.coleccion = MongoConection
-                .obtenerBaseDatos()
-                .getCollection("citas");
+        this.coleccion = MongoConection.obtenerColeccionCitas();
         this.adaptador = new CitaDocumentoAdaptador();
     }
 
@@ -40,17 +37,14 @@ public class CitaDAO implements ICitaDAO {
             throw new PersistenciaException("La cita no puede ser nula");
         }
         LOG.log(Level.INFO, "Guardando cita con ID: {0}", cita.getId());
-        Document existente = coleccion.find(Filters.eq("_id", cita.getId())).first();
+        CitaMongoEntidad existente = coleccion.find(
+                Filters.eq("folio", cita.getId())).first();
         if (existente == null) {
-            Document doc = adaptador.convertirADocumento(cita);
-            InsertOneResult resultado = coleccion.insertOne(doc);
-            if (resultado.getInsertedId() == null) {
-                throw new PersistenciaException("Error al insertar la cita");
-            }
+            coleccion.insertOne(adaptador.convertirAMongo(cita));
         } else {
             coleccion.replaceOne(
-                    Filters.eq("_id", cita.getId()),
-                    adaptador.convertirADocumento(cita));
+                    Filters.eq("folio", cita.getId()),
+                    adaptador.convertirAMongo(cita));
         }
         return cita;
     }
@@ -61,10 +55,20 @@ public class CitaDAO implements ICitaDAO {
             throw new PersistenciaException("El ID no puede ser nulo o vacío");
         }
         LOG.log(Level.INFO, "Buscando cita en Mongo con ID: {0}", id);
-        Document doc = coleccion.find(Filters.eq("_id", id)).first();
+        CitaMongoEntidad doc = coleccion.find(Filters.eq("folio", id)).first();
         if (doc == null) {
             return null;
         }
-        return adaptador.convertirAEntidad(doc);
+        return adaptador.convertirADominio(doc);
+    }
+
+    @Override
+    public boolean eliminar(String id) throws PersistenciaException {
+        if (id == null || id.isBlank()) {
+            throw new PersistenciaException("El ID no puede ser nulo o vacío");
+        }
+        LOG.log(Level.INFO, "Eliminando cita con ID: {0}", id);
+        return coleccion.deleteOne(Filters.eq("folio", id))
+                .getDeletedCount() > 0;
     }
 }
