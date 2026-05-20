@@ -8,6 +8,7 @@ import interfaces.ICitaDAO;
 import interfaces.IDoctorDAO;
 import interfaces.IPacienteDAO;
 import interfaces.ITransaccionDAO;
+import interfaces.IReporteTransaccionDAO;
 
 /**
  * Fábrica singleton para obtener instancias de los DAOs.
@@ -43,4 +44,8 @@ public class DAOFactory {
     public IPacienteDAO getPacienteDAO() {
         return new PacienteDAO();
     }
+    
+    public IReporteTransaccionDAO getReporteTransaccionDAO() {
+    return new ReporteTransaccionDAO();
+}
 }

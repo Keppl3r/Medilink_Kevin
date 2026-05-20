@@ -10,6 +10,7 @@ import dto.PagoDTO;
 import dto.TransaccionDTO;
 import auditarTransacciones.excepciones.NegocioException;
 import java.util.List;
+import dto.ReporteEstadoDTO;
 
 /**
  * Interfaz del subsistema auditarTransacciones.
@@ -31,4 +32,6 @@ public interface IAuditarTransacciones {
     public void marcarPendiente(String id) throws NegocioException;
 
     public PagoDTO obtenerPago(String idTransaccion) throws NegocioException;
+    
+    public List<ReporteEstadoDTO> reportePorEstado() throws NegocioException;
 }

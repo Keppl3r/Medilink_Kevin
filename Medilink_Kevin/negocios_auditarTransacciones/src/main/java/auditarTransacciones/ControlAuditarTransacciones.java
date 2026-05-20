@@ -4,6 +4,9 @@
  */
 package auditarTransacciones;
 
+import dto.ReporteEstadoDTO;
+import interfaces.IReporteTransaccionDAO;
+import objetosNegocio.ReporteEstado;
 import dto.DetalleTransaccionDTO;
 import dto.FiltrosBusquedaDTO;
 import dto.PagoDTO;
@@ -29,9 +32,12 @@ class ControlAuditarTransacciones {
     private static final Logger LOG = Logger.getLogger(ControlAuditarTransacciones.class.getName());
 
     private final ITransaccionDAO transaccionDAO;
+    private final IReporteTransaccionDAO reporteDAO;
 
-    public ControlAuditarTransacciones(ITransaccionDAO transaccionDAO) {
+    public ControlAuditarTransacciones(ITransaccionDAO transaccionDAO,
+            IReporteTransaccionDAO reporteDAO) {
         this.transaccionDAO = transaccionDAO;
+        this.reporteDAO = reporteDAO;
     }
 
     public Integer contarPendientes() throws NegocioException {
@@ -118,6 +124,10 @@ class ControlAuditarTransacciones {
     }
 
     private void validarConsistencia(Transaccion transaccion) throws NegocioException {
+        if (transaccion.getReferenciaStripe() == null
+                || transaccion.getReferenciaStripe().isBlank()) {
+            throw new NegocioException("Factura no emitida: la transacción no tiene referencia de pago");
+        }
         if (transaccion.getMontoRecibido() == null || transaccion.getMontoEsperado() == null) {
             throw new NegocioException("Los montos no pueden ser nulos");
         }
@@ -156,6 +166,7 @@ class ControlAuditarTransacciones {
         dto.setEstado(transaccion.getEstado());
         dto.setNombrePaciente(transaccion.getNombrePaciente());
         dto.setNombreMedico(transaccion.getNombreMedico());
+        dto.setTipoConsulta(transaccion.getTipoConsulta());
         return dto;
     }
 
@@ -188,6 +199,28 @@ class ControlAuditarTransacciones {
         dto.setMontoRecibido(transaccion.getMontoRecibido());
         dto.setMensajeEstado(transaccion.getMensajeEstado());
         dto.setIdTransaccion(transaccion.getId());
+        return dto;
+    }
+
+    public List<ReporteEstadoDTO> reportePorEstado() throws NegocioException {
+        try {
+            List<ReporteEstado> reportes = reporteDAO.reportePorEstado();
+            List<ReporteEstadoDTO> lista = new ArrayList<>();
+            for (ReporteEstado r : reportes) {
+                lista.add(mapearReporteADTO(r));
+            }
+            return lista;
+        } catch (PersistenciaException e) {
+            LOG.log(Level.SEVERE, "Error en la bd al generar reporte por estado", e);
+            throw new NegocioException("Error al generar el reporte: " + e.getMessage(), e);
+        }
+    }
+
+    private ReporteEstadoDTO mapearReporteADTO(ReporteEstado r) {
+        ReporteEstadoDTO dto = new ReporteEstadoDTO();
+        dto.setEstado(r.getEstado());
+        dto.setTotalTransacciones(r.getTotalTransacciones());
+        dto.setMontoPromedio(r.getMontoPromedio());
         return dto;
     }
 }

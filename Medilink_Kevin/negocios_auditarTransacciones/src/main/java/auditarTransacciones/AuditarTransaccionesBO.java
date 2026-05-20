@@ -4,6 +4,7 @@
  */
 package auditarTransacciones;
 
+import dto.ReporteEstadoDTO;
 import daos.DAOFactory;
 import dto.DetalleTransaccionDTO;
 import dto.FiltrosBusquedaDTO;
@@ -25,10 +26,11 @@ public class AuditarTransaccionesBO implements IAuditarTransacciones {
     private final ControlAuditarTransacciones control;
 
     public AuditarTransaccionesBO() {
-        this.control = new ControlAuditarTransacciones(
-                DAOFactory.getInstancia().getTransaccionDAO()
-        );
-    }
+    this.control = new ControlAuditarTransacciones(
+            DAOFactory.getInstancia().getTransaccionDAO(),
+            DAOFactory.getInstancia().getReporteTransaccionDAO()
+    );
+}
 
     @Override
     public Integer contarPendientes() throws NegocioException {
@@ -76,4 +78,11 @@ public class AuditarTransaccionesBO implements IAuditarTransacciones {
         LOG.log(Level.INFO, "Pago obtenido para transaccion: {0}", idTransaccion);
         return pago;
     }
+    
+    @Override
+public List<ReporteEstadoDTO> reportePorEstado() throws NegocioException {
+    List<ReporteEstadoDTO> reporte = control.reportePorEstado();
+    LOG.log(Level.INFO, "Reporte por estado generado: {0} filas", reporte.size());
+    return reporte;
+}
 }
