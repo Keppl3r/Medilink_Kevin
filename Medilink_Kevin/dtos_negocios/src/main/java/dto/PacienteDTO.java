@@ -36,6 +36,6 @@ public class PacienteDTO {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    
+
+
 }

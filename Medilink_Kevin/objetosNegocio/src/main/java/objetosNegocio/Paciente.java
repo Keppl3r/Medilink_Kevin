@@ -14,7 +14,7 @@ public class Paciente {
     private Integer id;
     private String nombre;
     private String correo;
-    private String telefono;
+
 
     public Paciente() {
     }
@@ -23,7 +23,6 @@ public class Paciente {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
-        this.telefono = telefono;
     }
 
     public Integer getId() {
@@ -50,11 +49,4 @@ public class Paciente {
         this.correo = correo;
     }
 
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
 }

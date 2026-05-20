@@ -5,7 +5,7 @@
 package objetosNegocio;
 
 /**
- * es una coleccion en Mongo
+ * es una coleccion en Mongo 
  *
  * @author keppler
  */
@@ -67,5 +67,4 @@ public class Doctor {
     public void setDisponible(Boolean disponible) {
         this.disponible = disponible;
     }
-
 }

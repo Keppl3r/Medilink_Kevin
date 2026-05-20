@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * es una cita medica, el id se maneja en negocio, y el id de mongo se mantiene igual
  * @author keppler
  */
 public class Cita {
@@ -116,23 +116,23 @@ public class Cita {
         return referenciaStripe;
     }
 
-    public void setReferenciaStripe(String r) {
-        this.referenciaStripe = r;
+    public void setReferenciaStripe(String referenciaStripe) {
+        this.referenciaStripe = referenciaStripe;
     }
 
     public Double getMontoPagado() {
         return montoPagado;
     }
 
-    public void setMontoPagado(Double m) {
-        this.montoPagado = m;
+    public void setMontoPagado(Double montoPagado) {
+        this.montoPagado = montoPagado;
     }
 
     public String getMensajeEstadoPago() {
         return mensajeEstadoPago;
     }
 
-    public void setMensajeEstadoPago(String m) {
-        this.mensajeEstadoPago = m;
+    public void setMensajeEstadoPago(String mensajeEstadoPago) {
+        this.mensajeEstadoPago = mensajeEstadoPago;
     }
 }

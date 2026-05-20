@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package agendarCitas;
+package presentacion.agendarCitas;
 
+import agendarCitas.AgendarCitaBO;
+import agendarCitas.IAgendarCita;
 import agendarCitas.excepciones.NegocioAgendarException;
 import dto.CitaDTO;
 import dto.DoctorDTO;
@@ -13,41 +15,34 @@ import java.util.List;
  *
  * @author keppler
  */
-public class AgendarCitaBO implements IAgendarCita {
+public class CoordinadorAgendarCita {
 
-    private final ControlAgendarCita control;
+    private final IAgendarCita negocio;
 
-    public AgendarCitaBO() {
-        this.control = new ControlAgendarCita();
+    public CoordinadorAgendarCita() {
+        this.negocio = new AgendarCitaBO();
     }
 
-    @Override
-    public List<DoctorDTO> obtenerEspecialistas()
-            throws NegocioAgendarException {
-        return control.obtenerEspecialistas();
+    public List<DoctorDTO> obtenerEspecialistas() throws NegocioAgendarException {
+        return negocio.obtenerEspecialistas();
     }
 
-    @Override
     public boolean verificarDisponibilidad(Integer idDoctor)
             throws NegocioAgendarException {
-        return control.verificarDisponibilidad(idDoctor);
+        return negocio.verificarDisponibilidad(idDoctor);
     }
 
-    @Override
-    public CitaDTO registrarCita(CitaDTO cita)
-            throws NegocioAgendarException {
-        return control.registrarCita(cita);
+    public CitaDTO registrarCita(CitaDTO cita) throws NegocioAgendarException {
+        return negocio.registrarCita(cita);
     }
 
-    @Override
     public String procesarPago(String idCita, String datosPago)
             throws NegocioAgendarException {
-        return control.procesarPago(idCita, datosPago);
+        return negocio.procesarPago(idCita, datosPago);
     }
 
-    @Override
     public boolean enviarConfirmacion(String idCita, String correo)
             throws NegocioAgendarException {
-        return control.enviarConfirmacion(idCita, correo);
+        return negocio.enviarConfirmacion(idCita, correo);
     }
 }

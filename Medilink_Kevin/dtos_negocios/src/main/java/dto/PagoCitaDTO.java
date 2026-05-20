@@ -45,6 +45,6 @@ public class PagoCitaDTO {
     public void setIdCita(String idCita) {
         this.idCita = idCita;
     }
-    
-    
+
+
 }

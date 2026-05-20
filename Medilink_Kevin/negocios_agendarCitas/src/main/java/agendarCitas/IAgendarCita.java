@@ -17,11 +17,14 @@ public interface IAgendarCita {
 
     List<DoctorDTO> obtenerEspecialistas() throws NegocioAgendarException;
 
-    boolean verificarDisponibilidad(Integer idDoctor) throws NegocioAgendarException;
+    boolean verificarDisponibilidad(Integer idDoctor)
+            throws NegocioAgendarException;
 
     CitaDTO registrarCita(CitaDTO cita) throws NegocioAgendarException;
 
-    boolean procesarPago(String idCita, String datosPago) throws NegocioAgendarException;
+    String procesarPago(String idCita, String datosPago)
+            throws NegocioAgendarException;
 
-    boolean enviarConfirmacion(String idCita, String correo) throws NegocioAgendarException;
+    boolean enviarConfirmacion(String idCita, String correo)
+            throws NegocioAgendarException;
 }

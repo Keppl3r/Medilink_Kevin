@@ -21,6 +21,8 @@ public class CitaDTO {
     private List<String> sintomas;
     private String estado;
     private Double monto;
+    private Integer idPaciente;
+    private Integer idMedico;
     private String nombrePaciente;
     private String nombreMedico;
     private String especialidadMedico;
@@ -89,28 +91,43 @@ public class CitaDTO {
         this.monto = monto;
     }
 
+    public Integer getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(Integer idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public Integer getIdMedico() {
+        return idMedico;
+    }
+
+    public void setIdMedico(Integer idMedico) {
+        this.idMedico = idMedico;
+    }
+
     public String getNombrePaciente() {
         return nombrePaciente;
     }
 
-    public void setNombrePaciente(String nombrePaciente) {
-        this.nombrePaciente = nombrePaciente;
+    public void setNombrePaciente(String n) {
+        this.nombrePaciente = n;
     }
 
     public String getNombreMedico() {
         return nombreMedico;
     }
 
-    public void setNombreMedico(String nombreMedico) {
-        this.nombreMedico = nombreMedico;
+    public void setNombreMedico(String n) {
+        this.nombreMedico = n;
     }
 
     public String getEspecialidadMedico() {
         return especialidadMedico;
     }
 
-    public void setEspecialidadMedico(String especialidadMedico) {
-        this.especialidadMedico = especialidadMedico;
+    public void setEspecialidadMedico(String e) {
+        this.especialidadMedico = e;
     }
-
 }
