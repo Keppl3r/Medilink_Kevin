@@ -21,6 +21,15 @@ public class TransaccionDTO {
     private String estado;
     private String nombrePaciente;
     private String nombreMedico;
+    private String tipoConsulta;
+
+    public String getTipoConsulta() {
+        return tipoConsulta;
+    }
+
+    public void setTipoConsulta(String tipoConsulta) {
+        this.tipoConsulta = tipoConsulta;
+    }
 
     public TransaccionDTO() {
     }
